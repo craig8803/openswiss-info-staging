@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenSwiss.info - Swiss Knowledge Base</title>
+    <meta name="description" content="Swiss design-inspired knowledge base and data visualization platform">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3KCY66H3PS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">open <span class="swiss">swiss</span> info</div>
+                <div class="language-bar">
+                    <div class="language-links">
+                        <a href="#de">DE</a>
+                        <span>|</span>
+                        <a href="#fr">FR</a>
+                        <span>|</span>
+                        <a href="#it">IT</a>
+                        <span>|</span>
+                        <a href="#en" class="active">EN</a>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav">
+                <div class="nav-item">
+                    <a href="#about">about</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#data">data</a>
+                    <div class="dropdown">
+                        <a href="#demographics">demographics</a>
+                        <a href="#politics">politics</a>
+                        <a href="#culture">culture</a>
+                        <a href="#economy">economy</a>
+                        <a href="#geography">geography</a>
+                        <a href="#education">education</a>
+                        <a href="#healthcare">healthcare</a>
+                        <a href="#environment">environment</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#contact">contact</a>
+                </div>
+            </nav>
+        </header>
+
+        <div class="graph-panel">
+            <h2 class="panel-title">Data visualisation</h2>
+            <div class="graph-container">
+                <div class="data-nodes">
+                    <div class="node large" style="top: 20%; left: 30%;"></div>
+                    <div class="node" style="top: 40%; left: 60%;"></div>
+                    <div class="node" style="top: 60%; left: 20%;"></div>
+                    <div class="node" style="top: 30%; left: 80%;"></div>
+                    <div class="node large" style="top: 70%; left: 70%;"></div>
+                    <div class="node" style="top: 50%; left: 40%;"></div>
+                    <div class="node" style="top: 80%; left: 50%;"></div>
+                    <div class="connection" style="top: 20%; left: 30%; width: 120px; transform: rotate(25deg);"></div>
+                    <div class="connection" style="top: 40%; left: 60%; width: 80px; transform: rotate(-45deg);"></div>
+                    <div class="connection" style="top: 60%; left: 20%; width: 100px; transform: rotate(15deg);"></div>
+                </div>
+                <div class="graph-placeholder">
+                    JSON data visualization<br>
+                    Interactive node network
+                </div>
+            </div>
+            
+            <div class="data-controls">
+                <div class="control-group">
+                    <label class="control-label">Filter by Type</label>
+                    <select class="control-input">
+                        <option>All Nodes</option>
+                        <option>Organizations</option>
+                        <option>People</option>
+                        <option>Concepts</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Search</label>
+                    <input type="text" class="control-input" placeholder="Search graph data...">
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-panel">
+            <div class="chat-header">
+                <h1 class="chat-title">Swiss knowledge base</h1>
+                <p class="chat-subtitle">Query our comprehensive Swiss data and information system</p>
+            </div>
+            
+            <div class="chat-messages">
+                <div class="message assistant">
+                    <div class="content">
+                        Welcome to OpenSwiss.info. I can help you explore Swiss data, answer questions about Switzerland, and provide insights from our comprehensive knowledge base. What would you like to know?
+                    </div>
+                </div>
+                
+                <div class="message user">
+                    <div class="content">
+                        What are the main industries in Switzerland?
+                    </div>
+                </div>
+                
+                <div class="message assistant">
+                    <div class="content">
+                        Switzerland's economy is dominated by several key industries: financial services (banking and insurance), pharmaceuticals and biotechnology, precision manufacturing (watches, machinery), chemicals, and tourism. The financial sector accounts for approximately 10% of GDP, while pharmaceuticals represent about 5.7% of GDP. Notable companies include Nestlé, Novartis, Roche, and UBS.
+                        <br><br>
+                        The country is also known for its high-tech manufacturing, particularly in precision instruments and luxury goods. Would you like more specific information about any of these sectors?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" placeholder="Ask about Swiss data, economy, culture, or any topic...">
+                <button class="send-button">Send</button>
+            </div>
+        </div>
+
+        <div class="citations-panel">
+            <h2 class="panel-title">Sources & citations</h2>
+            
+            <div class="citations-list">
+                <div class="citation">
+                    <div class="citation-number">[1]</div>
+                    <div class="citation-title"><a href="https://www.bfs.admin.ch/bfs/en/home/statistics/national-economy.html" target="_blank">Swiss economic structure report 2024</a></div>
+                    <div class="citation-source">Federal Statistical Office</div>
+                    <div class="citation-excerpt">Switzerland's financial services sector contributes approximately 10% to the national GDP, making it one of the most important economic pillars...</div>
+                </div>
+                
+                <div class="citation">
+                    <div class="citation-number">[2]</div>
+                    <div class="citation-title"><a href="https://www.interpharma.ch/en/facts-figures" target="_blank">Pharmaceutical industry in Switzerland</a></div>
+                    <div class="citation-source">Swiss Pharmaceutical Association</div>
+                    <div class="citation-excerpt">The Swiss pharmaceutical industry employs over 46,000 people and accounts for 5.7% of Switzerland's gross domestic product...</div>
+                </div>
+                
+                <div class="citation">
+                    <div class="citation-number">[3]</div>
+                    <div class="citation-title"><a href="https://www.s-ge.com/en/invest-switzerland/manufacturing" target="_blank">Manufacturing excellence report</a></div>
+                    <div class="citation-source">Switzerland Global Enterprise</div>
+                    <div class="citation-excerpt">Swiss precision manufacturing maintains its global leadership position, particularly in watch-making and high-precision machinery...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple interaction for demo purposes
+        const chatInput = document.querySelector('.chat-input');
+        const sendButton = document.querySelector('.send-button');
+        const messagesContainer = document.querySelector('.chat-messages');
+
+        function addMessage(content, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
+            messageDiv.innerHTML = `<div class="content">${content}</div>`;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function handleSend() {
+            const message = chatInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatInput.value = '';
+                
+                // Simulate response after a delay
+                setTimeout(() => {
+                    addMessage("Thank you for your question. I'm processing your query and will provide a comprehensive response with relevant citations from our Swiss knowledge base.");
+                }, 800);
+            }
+        }
+
+        sendButton.addEventListener('click', handleSend);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSend();
+            }
+        });
+
+        // Graph node interactions
+        const nodes = document.querySelectorAll('.node');
+        nodes.forEach(node => {
+            node.addEventListener('click', () => {
+                console.log('Node clicked - would show detailed data view');
+            });
+        });
+    </script>
+</body>
+</html>
