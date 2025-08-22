@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="styles.css">
     
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3KCY66H3PS"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-3KCY66H3PS');
+        gtag('config', 'GA_MEASUREMENT_ID');
     </script>
 </head>
 <body>
@@ -79,15 +79,12 @@
             
             <div class="data-controls">
                 <div class="control-group">
-                    <label class="control-label">Filter by Data Type</label>
+                    <label class="control-label">Filter by Type</label>
                     <select class="control-input">
-                        <option>Culture</option>
-                        <option>Demographics</option>
-                        <option>Healthcare</option>
-                        <option>Politics</option>
-                        <option>Real estate</option>
-                        <option>Tax</option>
-                        <option>Urban planning</option>
+                        <option>All Nodes</option>
+                        <option>Organizations</option>
+                        <option>People</option>
+                        <option>Concepts</option>
                     </select>
                 </div>
                 <div class="control-group">
@@ -100,31 +97,34 @@
         <div class="chat-panel">
             <div class="chat-header">
                 <h1 class="chat-title">Swiss knowledge base</h1>
-                <p class="chat-subtitle">Query our comprehensive Swiss data and information system</p>
-                <p class="chat-subtitle">More data will be added soon.</p>
+                <p class="chat-subtitle">Query our comprehensive Swiss data and information system<br>More data will be added soon.</p>
             </div>
             
-            <div class="chat-messages">
-                <div class="message assistant">
-                    <div class="content">
-                        Welcome to OpenSwiss.info. I can help you explore Swiss data, answer questions about Switzerland, and provide insights from our comprehensive knowledge base. What would you like to know?
+            <div class="chat-example">
+                <div class="example-conversation">
+                    <div class="message assistant">
+                        <div class="content">
+                            Welcome to OpenSwiss.info. I can help you explore Swiss data, answer questions about Switzerland, and provide insights from our comprehensive knowledge base. What would you like to know?
+                        </div>
                     </div>
-                </div>
-                
-                <div class="message user">
-                    <div class="content">
-                        What are the main industries in Switzerland?
+                    
+                    <div class="message user">
+                        <div class="content">
+                            What are the main industries in Switzerland?
+                        </div>
                     </div>
-                </div>
-                
-                <div class="message assistant">
-                    <div class="content">
-                        Switzerland's economy is dominated by several key industries: financial services (banking and insurance), pharmaceuticals and biotechnology, precision manufacturing (watches, machinery), chemicals, and tourism. The financial sector accounts for approximately 10% of GDP, while pharmaceuticals represent about 5.7% of GDP. Notable companies include Nestlé, Novartis, Roche, and UBS.
-                        <br><br>
-                        The country is also known for its high-tech manufacturing, particularly in precision instruments and luxury goods. Would you like more specific information about any of these sectors?
+                    
+                    <div class="message assistant">
+                        <div class="content">
+                            Switzerland's economy is dominated by several key industries: financial services (banking and insurance), pharmaceuticals and biotechnology, precision manufacturing (watches, machinery), chemicals, and tourism. The financial sector accounts for approximately 10% of GDP, while pharmaceuticals represent about 5.7% of GDP. Notable companies include Nestlé, Novartis, Roche, and UBS.
+                            <br><br>
+                            The country is also known for its high-tech manufacturing, particularly in precision instruments and luxury goods. Would you like more specific information about any of these sectors?
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            <div class="chat-separator"></div>
             
             <div class="chat-input-container">
                 <input type="text" class="chat-input" placeholder="Ask about Swiss data, economy, culture, or any topic...">
@@ -164,14 +164,14 @@
         // Simple interaction for demo purposes
         const chatInput = document.querySelector('.chat-input');
         const sendButton = document.querySelector('.send-button');
-        const messagesContainer = document.querySelector('.chat-messages');
+        const exampleConversation = document.querySelector('.example-conversation');
 
         function addMessage(content, isUser = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
             messageDiv.innerHTML = `<div class="content">${content}</div>`;
-            messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            exampleConversation.appendChild(messageDiv);
+            exampleConversation.scrollTop = exampleConversation.scrollHeight;
         }
 
         function handleSend() {
