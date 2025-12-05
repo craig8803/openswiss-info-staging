@@ -1,0 +1,721 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "verkehrsmeldung_stadt_zug",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5175943966, 47.165191387 ],
+							[ 8.5175675609, 47.1651739526 ],
+							[ 8.5176376619, 47.1651206131 ],
+							[ 8.5176561091, 47.1651324817 ],
+							[ 8.5176528675, 47.1651358988 ],
+							[ 8.5175943966, 47.165191387 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "c8e5124c-9d4f-46c1-8bac-5db7c7edc100",
+				"kategorie" : "Verkehrsbehinderung",
+				"ort" : "Bohlstrasse 3",
+				"grund" : "Bauinstallationsplatz",
+				"datumvon" : "2024-10-28",
+				"datumbis" : "2025-11-30",
+				"bemerkungen" : "Die Durchfahrtsbreite muss jederzeit mind 4.0 m betragen.",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5135446045, 47.1731716802 ],
+							[ 8.5136088595, 47.1731436651 ],
+							[ 8.5138022541, 47.1732134726 ],
+							[ 8.513745427, 47.1732436563 ],
+							[ 8.5135446045, 47.1731716802 ]
+						]
+					],
+					[
+						[
+							[ 8.5137310889, 47.1734692631 ],
+							[ 8.513853677, 47.1733634938 ],
+							[ 8.5139042565, 47.1733898765 ],
+							[ 8.5137808706, 47.1734967723 ],
+							[ 8.5137310889, 47.1734692631 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "9bad0a23-2bdb-4055-a8a1-0bd57a6a2bb5",
+				"kategorie" : "Parkverbot / Parkplatzreservation",
+				"ort" : "Dammstrasse  ",
+				"grund" : "Installationsflaeche ",
+				"datumvon" : "2025-01-01",
+				"datumbis" : "2026-01-30",
+				"bemerkungen" : "Es handelt sich um eine Verlaengerung der Parkplatzreservation.",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5255562498, 47.167075919 ],
+							[ 8.5255804017, 47.1670633697 ],
+							[ 8.5258622487, 47.1672983897 ],
+							[ 8.5258380968, 47.167310939 ],
+							[ 8.5255562498, 47.167075919 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "bc8e0bd6-7b97-45a6-94db-e5ad2f84ab8b",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Weidstrasse 3",
+				"grund" : "Bauinstallationsplatz",
+				"datumvon" : "2024-11-04",
+				"datumbis" : "2025-11-28",
+				"bemerkungen" : "Es muss eine Durchfahrtsbreite von 3.3 m vorhanden sein. An den Abschrankungen duerfen keine sichtbehindernde Gegenstaende aufgehaengt werden (Werbeblachen, Sichtschutz etc.). Im Weiteren verweisen wir auf die Auflagen in der Baubewilligung. ",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5190914918, 47.1656597321 ],
+							[ 8.5192274683, 47.1658141621 ],
+							[ 8.5192010287, 47.1658249668 ],
+							[ 8.5191393773, 47.1657528239 ],
+							[ 8.5190658884, 47.165669356 ],
+							[ 8.5190914918, 47.1656597321 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "952aff11-5925-418a-be30-142e46693b6c",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Hoehenweg 7",
+				"grund" : "Neubau Zweifamilienhaus",
+				"datumvon" : "2025-05-01",
+				"datumbis" : "2026-01-30",
+				"bemerkungen" : "Die Durchfahrtsbreite muss 3.50 Meter betragen.",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5072361997, 47.1775905537 ],
+							[ 8.5071531406, 47.1773364085 ],
+							[ 8.5083994021, 47.1771481093 ],
+							[ 8.5083869983, 47.1771013075 ],
+							[ 8.5085653356, 47.1770730632 ],
+							[ 8.5086024644, 47.1770946127 ],
+							[ 8.508693848, 47.1770765601 ],
+							[ 8.5086724588, 47.1770392252 ],
+							[ 8.5094121032, 47.1768650078 ],
+							[ 8.5094944386, 47.1768532943 ],
+							[ 8.5095568864, 47.1768792996 ],
+							[ 8.5096826045, 47.1768577989 ],
+							[ 8.5096947277, 47.176890528 ],
+							[ 8.5095418357, 47.1769294846 ],
+							[ 8.5091223928, 47.1770584994 ],
+							[ 8.5091211632, 47.1771116836 ],
+							[ 8.509077749, 47.177119907 ],
+							[ 8.5090332712, 47.1770749674 ],
+							[ 8.50898304, 47.177086382 ],
+							[ 8.5079035797, 47.1773575887 ],
+							[ 8.5077186427, 47.1773999684 ],
+							[ 8.50771933, 47.1774343679 ],
+							[ 8.5072361997, 47.1775905537 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "4d65bc03-404e-4f63-9965-fc9e6eff0a59",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Weststrasse (Abschnitt Allmendstrasse - Hertistrasse)",
+				"grund" : "Verschiebung Strassenbereich inklusive Werkleitungen",
+				"datumvon" : "2025-05-05",
+				"datumbis" : "2027-09-30",
+				"bemerkungen" : "Aus Sicherheitsgruenden ist der Durchgang fuer Fussgaenger im Baubereich untersagt. Es steht situativ ein Verkehrsdienst im Einsatz. ",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5149511684, 47.1784969794 ],
+							[ 8.5149048041, 47.1781590228 ],
+							[ 8.515244948, 47.1781359015 ],
+							[ 8.5152930934, 47.1784767736 ],
+							[ 8.5149511684, 47.1784969794 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "7f949a08-589b-4a34-a637-795e572ae233",
+				"kategorie" : "Parkverbot / Parkplatzreservation",
+				"ort" : "Theilerplatz",
+				"grund" : "Installationsplatz",
+				"datumvon" : "2025-06-02",
+				"datumbis" : "2026-12-31",
+				"bemerkungen" : "Der Parkplatz bleibt bis zur Umnutzung reserviert. ",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5249488074, 47.1656058492 ],
+							[ 8.5249753719, 47.1656275268 ],
+							[ 8.5249753719, 47.1656275268 ],
+							[ 8.5249744961, 47.1656503772 ],
+							[ 8.5249731916, 47.1656851096 ],
+							[ 8.5249751244, 47.1657143293 ],
+							[ 8.524978406, 47.1657439931 ],
+							[ 8.5249489564, 47.1657451848 ],
+							[ 8.5249465114, 47.1657237363 ],
+							[ 8.524945443, 47.1657041021 ],
+							[ 8.5249442819, 47.1656799004 ],
+							[ 8.5249451114, 47.1656547662 ],
+							[ 8.5249466014, 47.165629169 ],
+							[ 8.5249488074, 47.1656058492 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "ba34db9b-725e-4eeb-ac09-f1a0bf639345",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Im Roetel 6",
+				"grund" : "Installationsflaeche",
+				"datumvon" : "2025-07-01",
+				"datumbis" : "2025-12-19",
+				"bemerkungen" : "Es muss immer eine Durchfahrtsbreite von mind. 3.0 m vorhanden sein. Die Installationsflaeche muss nach den gueltigen Normen abgesperrt und beleuchtet sein. Die Ausfahrtssichtweite der Liegenschaft Im Roetel 8 darf  nicht beeintraechtigt werden.",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5239002061, 47.1685600941 ],
+							[ 8.52387541, 47.168566205 ],
+							[ 8.5237759625, 47.1683762738 ],
+							[ 8.5238007585, 47.1683701629 ],
+							[ 8.5239002061, 47.1685600941 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "6baf5d0d-39f5-4a82-9a21-8f17cdd27684",
+				"kategorie" : "Parkverbot / Parkplatzreservation",
+				"ort" : "Rosenbergstrasse 6",
+				"grund" : "Bauinstallationsplatz",
+				"datumvon" : "2025-07-07",
+				"datumbis" : "2026-05-29",
+				"bemerkungen" : "Bauinstallationsplatz fuer Liegenschaft Rosenbergstrasse 6",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5141796487, 47.1712311434 ],
+							[ 8.5141883176, 47.1712060399 ],
+							[ 8.5144275354, 47.1711271721 ],
+							[ 8.5144016845, 47.1710961356 ],
+							[ 8.5145270411, 47.1710574298 ],
+							[ 8.5145437519, 47.1710901156 ],
+							[ 8.5148332243, 47.1710013937 ],
+							[ 8.5148961054, 47.1709351214 ],
+							[ 8.5149222396, 47.1709802303 ],
+							[ 8.5149655536, 47.1709673139 ],
+							[ 8.5149821073, 47.1709921816 ],
+							[ 8.5155154736, 47.1708292365 ],
+							[ 8.5154786317, 47.1708788444 ],
+							[ 8.5142787793, 47.1712568033 ],
+							[ 8.5141796487, 47.1712311434 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "a8c36513-e055-4acd-b707-5b166cf5dfdb",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Rigistrasse (Bauphase 2A)",
+				"grund" : "Einfuehrung Trennsystem / Neubau Fernwaermeleitungen",
+				"datumvon" : "2025-05-12",
+				"datumbis" : "2026-01-30",
+				"bemerkungen" : "Die Ausfahrt von der Rigistrasse in die Bundesstrasse muss infolge Grabarbeiten gesperrt werden. In der Folge wird das Einbahnregime bei der Gartenstrasse Ost umgestellt und die Ausfahrt in die Bahnhofstrasse gestattet.",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5181525081, 47.1696269028 ],
+							[ 8.5181336156, 47.169628253 ],
+							[ 8.5180531418, 47.1693052785 ],
+							[ 8.5180262827, 47.1692527485 ],
+							[ 8.5180664895, 47.1691995893 ],
+							[ 8.5181365687, 47.1691778191 ],
+							[ 8.5182002425, 47.1691795676 ],
+							[ 8.5183937408, 47.1692223234 ],
+							[ 8.5183838016, 47.1692411836 ],
+							[ 8.5185078365, 47.1695918995 ],
+							[ 8.5181525081, 47.1696269028 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "5e2f74bb-3e79-4d98-9df3-57584409a1d6",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Guggiweg 11",
+				"grund" : "Neubau MFH",
+				"datumvon" : "2025-06-23",
+				"datumbis" : "2026-03-27",
+				"bemerkungen" : "Der Guggiweg ist im Baubereich nur noch fuer Fussgaenger passierbar. ",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5238814406, 47.1686576841 ],
+							[ 8.5237713442, 47.1684446619 ],
+							[ 8.523799587, 47.1684379444 ],
+							[ 8.5238856481, 47.168610727 ],
+							[ 8.5238814406, 47.1686576841 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "26ec2059-b794-4304-b2a9-371f3d36eab2",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Rosenbergstrasse 6",
+				"grund" : "Installationsflaeche",
+				"datumvon" : "2025-07-07",
+				"datumbis" : "2026-05-29",
+				"bemerkungen" : "Die Durchfahrtsbreite von 3.0 Meter muss jederzeit gewaehrleistet werden. ",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5248660842, 47.1826231454 ],
+							[ 8.5248839714, 47.1826510549 ],
+							[ 8.5242807432, 47.1828537013 ],
+							[ 8.5242607511, 47.182826614 ],
+							[ 8.5248660842, 47.1826231454 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "3ec45bca-d9a5-4a9a-9e98-55ebad1d7544",
+				"kategorie" : "Parkverbot / Parkplatzreservation",
+				"ort" : "Grienbachstrasse",
+				"grund" : "Strassen- und Leitungsbau",
+				"datumvon" : "2025-08-18",
+				"datumbis" : "2026-01-30",
+				"bemerkungen" : "Aufgrund der Bauarbeiten und Umgestaltung der Grienbachstrasse muessen diese Parkplaetze aufgehoben werden.",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5095403423, 47.1504034919 ],
+							[ 8.5095854983, 47.150400837 ],
+							[ 8.5096102686, 47.1506152663 ],
+							[ 8.5096531685, 47.1508406779 ],
+							[ 8.509606349, 47.1508457697 ],
+							[ 8.5095625265, 47.1506168747 ],
+							[ 8.5095403423, 47.1504034919 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "13103d48-1281-45cb-b8a0-9a07fff0ae2d",
+				"kategorie" : "Parkverbot / Parkplatzreservation",
+				"ort" : "Stolzengrabenstrasse",
+				"grund" : "Installationsplatz Baustelle \"Pumpwerks Tellenmatt\"",
+				"datumvon" : "2025-08-11",
+				"datumbis" : "2025-12-19",
+				"bemerkungen" : "Bitte die Verbotsignale beiseite stellen und die Flaeche mit Baulatten o.ae. einzaeunen. Die Signale werden von der Stadt Zug wieder eingezogen.",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5138150924, 47.1705704797 ],
+							[ 8.5138014135, 47.1705530788 ],
+							[ 8.5145146486, 47.1703422697 ],
+							[ 8.5145283277, 47.1703596705 ],
+							[ 8.5138150924, 47.1705704797 ]
+						]
+					],
+					[
+						[
+							[ 8.5145395744, 47.1701386381 ],
+							[ 8.5145718044, 47.1701331388 ],
+							[ 8.5146173744, 47.1702573383 ],
+							[ 8.5145851444, 47.1702628377 ],
+							[ 8.5145395744, 47.1701386381 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "97e47d5d-fb7f-41cf-9c04-8d88b8c0a827",
+				"kategorie" : "Parkverbot / Parkplatzreservation",
+				"ort" : "Gartenstrasse West / Rigistrasse Sued",
+				"grund" : "Installationsflaeche",
+				"datumvon" : "2024-12-02",
+				"datumbis" : "2026-01-30",
+				"bemerkungen" : "Nach dem Einrichten der Installationsflaechen bitte die Parkverbot-Signale beiseite stellen und uns informieren - vielen Dank.",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.524352218, 47.1666415133 ],
+							[ 8.5243003023, 47.1664986119 ],
+							[ 8.524350492, 47.1664928601 ],
+							[ 8.524397267, 47.1666366897 ],
+							[ 8.524352218, 47.1666415133 ]
+						]
+					],
+					[
+						[
+							[ 8.524411289, 47.1644351045 ],
+							[ 8.5244522757, 47.1643573039 ],
+							[ 8.524541348, 47.1643608618 ],
+							[ 8.5245449491, 47.1643476322 ],
+							[ 8.524577225, 47.164349087 ],
+							[ 8.5245649714, 47.1643808719 ],
+							[ 8.524481004, 47.1643746268 ],
+							[ 8.5244501557, 47.1644435347 ],
+							[ 8.524411289, 47.1644351045 ]
+						]
+					],
+					[
+						[
+							[ 8.5261873399, 47.1709685856 ],
+							[ 8.5261509046, 47.1709530954 ],
+							[ 8.5261989147, 47.1709033784 ],
+							[ 8.5262326989, 47.1709153749 ],
+							[ 8.5261873399, 47.1709685856 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "2eda8fa9-9047-4c05-a632-d96f0d309847",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Weinbergstrasse ",
+				"grund" : "Grabarbeiten fuer Sanierung der Wasserleitung",
+				"datumvon" : "2025-08-27",
+				"datumbis" : "2025-10-10",
+				"bemerkungen" : "Tagsueber steht ein Verkehrsdienst im Einsatz. Die Durchfahrtsbreite von 3.50 Meter muss gewaehrleistet sein. In der Nacht werden Stahlplatten gelegt. Diese sind im Belag eingefraest. ",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5242434639, 47.1665475317 ],
+							[ 8.5242311432, 47.1665124599 ],
+							[ 8.524296791, 47.1665056826 ],
+							[ 8.5243506177, 47.1664884604 ],
+							[ 8.5243961566, 47.1666349408 ],
+							[ 8.5243524686, 47.1666432703 ],
+							[ 8.5243274297, 47.1666171156 ],
+							[ 8.5242434639, 47.1665475317 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "197f4f7a-b281-4c19-a35e-568ccdb15148",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Oberleh (Hoehe Einmuendung Weinbergstrasse)",
+				"grund" : "Erneuerungsarbeiten fuer Wasserleitung",
+				"datumvon" : "2025-09-01",
+				"datumbis" : "2025-10-10",
+				"bemerkungen" : "Tagsueber steht ein Verkehrsdienst im Einsatz. Die Durchfahrtsbreite von 3.50 Meter muss gewaehrleistet sein. In der Nacht werden Stahlplatten gelegt. Diese sind im Belag eingefraest. Der Durchgang fuer Fussgaenger ist gewaehrleistet. Die Anwohner vom Oberleh werden vorgaengig durch die WWZ informiert. ",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5242636983, 47.1649168143 ],
+							[ 8.5242274461, 47.1649101187 ],
+							[ 8.5245385367, 47.1643494522 ],
+							[ 8.5245748599, 47.1643596658 ],
+							[ 8.5242663132, 47.164918549 ],
+							[ 8.5242636983, 47.1649168143 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "293fec28-de40-435f-b6d3-6491f6dc59a1",
+				"kategorie" : "Verkehrsbehinderung",
+				"ort" : "Weinbergstrasse ",
+				"grund" : "Grabarbeiten",
+				"datumvon" : "2025-08-27",
+				"datumbis" : "2025-10-10",
+				"bemerkungen" : "Im Trottoirbereich duerfen keine Handwerkerfahrzeuge abgestellt werden. Der Durchgang fuer die Fussgaenger betraegt noch ca. 1.20 Meter. Der Trottoirrand wird mittels Belag angerampt. ",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5176223399, 47.1651653195 ],
+							[ 8.5175916885, 47.1651460027 ],
+							[ 8.5175285118, 47.1651878614 ],
+							[ 8.5175130702, 47.1651770906 ],
+							[ 8.5175858594, 47.1651279534 ],
+							[ 8.5176309382, 47.1651565502 ],
+							[ 8.5176223399, 47.1651653195 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "edfa4f0f-7990-4be5-b691-629a5c7ec2bc",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Bohlstrasse 3",
+				"grund" : "Leitungsbau",
+				"datumvon" : "2025-09-02",
+				"datumbis" : "2025-09-30",
+				"bemerkungen" : "Die Bohlstrasse ist gesperrt. Der Durchgang fuer Fussgaenger ist gewaehrleistet - Radfahrer muessen das Fahrrad schieben.",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5268437359, 47.1819342688 ],
+							[ 8.526902975, 47.1820342149 ],
+							[ 8.5270465672, 47.1822788721 ],
+							[ 8.5272812365, 47.182674177 ],
+							[ 8.527469222, 47.1831539282 ],
+							[ 8.5273354885, 47.1831776946 ],
+							[ 8.52720323, 47.182841425 ],
+							[ 8.5271231839, 47.1826921729 ],
+							[ 8.5270343084, 47.1825415041 ],
+							[ 8.5268614771, 47.1822656214 ],
+							[ 8.5267456562, 47.1820882055 ],
+							[ 8.5241367607, 47.1829692888 ],
+							[ 8.5240874099, 47.1829049762 ],
+							[ 8.5261714392, 47.1821986393 ],
+							[ 8.5261508482, 47.1821598315 ],
+							[ 8.5268437359, 47.1819342688 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "09acea9a-9d14-468d-a59e-530491c535e8",
+				"kategorie" : "Baustelleninformation",
+				"ort" : "Grienbachstrasse / Inwilerriedstrasse (Bauphasen 2 - 4)",
+				"grund" : "Strassen- und Leitungsbau",
+				"datumvon" : "2025-08-18",
+				"datumbis" : "2026-08-28",
+				"bemerkungen" : "Auf der Inwilerried- und Grienbachstrasse wird der Verkehr in Fahrtrichtung Industriestrasse im Einbahnregime gefuehrt. Die Parkplaetze in der Grienbachstrasse werden voruebergehend aufgehoben. Punktuell stehen Verkehrsdienste im Einsatz.\n\n\nInternetlink auf Baustelleninformation:\n\nhttps://storymaps.arcgis.com/stories/1902ef3e51344275bbf09e7cca122ef1\n \n",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5056521783, 47.1455756391 ],
+							[ 8.5056107401, 47.1456125436 ],
+							[ 8.5055868439, 47.1456072319 ],
+							[ 8.505561876, 47.145439619 ],
+							[ 8.5056286261, 47.1453976842 ],
+							[ 8.5056324543, 47.145399862 ],
+							[ 8.5056429635, 47.1454930935 ],
+							[ 8.5056521783, 47.1455756391 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "7b8ba4c0-14d8-48e8-91a0-090ca06e18e9",
+				"kategorie" : "Parkverbot / Parkplatzreservation",
+				"ort" : "Artherstrasse, Parkplatz Rigiblick",
+				"grund" : "Installationsplatz (Anpassungsarbeiten Trottoir)",
+				"datumvon" : "2025-09-24",
+				"datumbis" : "2025-09-30",
+				"bemerkungen" : "Nach Arbeitsbeginn werden die Parkverbotssignale durch die Stadt Zug wieder eingezogen. Der Platz ist von der Bauunternehmung abzusperren.\nDie Umleitung der Fussgaenger erfolgt durch den Strassenunterhalt des Kanton Zug.",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.5268437359, 47.1819342688 ],
+							[ 8.526902975, 47.1820342149 ],
+							[ 8.5268726115, 47.1820914657 ],
+							[ 8.5272154286, 47.1826659012 ],
+							[ 8.5273075676, 47.182886362 ],
+							[ 8.5274204882, 47.1831708125 ],
+							[ 8.5273428592, 47.1831848268 ],
+							[ 8.52720323, 47.182841425 ],
+							[ 8.5271231839, 47.1826921729 ],
+							[ 8.5270343084, 47.1825415041 ],
+							[ 8.5268614771, 47.1822656214 ],
+							[ 8.5267287524, 47.1820551655 ],
+							[ 8.5241198583, 47.1829362484 ],
+							[ 8.5240874099, 47.1829049762 ],
+							[ 8.5261714392, 47.1821986393 ],
+							[ 8.5261508482, 47.1821598315 ],
+							[ 8.5268437359, 47.1819342688 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "0c079866-401d-4625-81f4-b89932557f70",
+				"kategorie" : "Strassensperre",
+				"ort" : "Ibelweg / Franz-Rittmeyer-Weg",
+				"grund" : "Strassen- und Leitungsbau",
+				"datumvon" : "2025-09-05",
+				"datumbis" : "2025-12-31",
+				"bemerkungen" : "Das Verkehrsregime ist wie bereits informiert ein Enbahnregime in Fahrtrichtung Industriestrasse.\nIbelweg (ab 10.09.2025): Zu- und Wegfahrt nur noch via Oberallmendstrasse moeglich (Seite Grienbachstrasse ist gesperrt).\nFranz-Rittmeyer-Weg (ab sofort): Zu- und Wegfahrt nur noch via Grienbachstrasse moeglich (Seite Inwilerriedstrasse ist gesperrt). \nGilt auch fuer den Langsamverkehr (Fussgaenger / Velo)\n",
+				"status" : "aktuell"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "MultiPolygon",
+				"coordinates" : [
+					[
+						[
+							[ 8.518619361, 47.1626359061 ],
+							[ 8.5185942731, 47.1626102432 ],
+							[ 8.5188290735, 47.1625128244 ],
+							[ 8.5190176058, 47.1624470699 ],
+							[ 8.5190382428, 47.1624735362 ],
+							[ 8.5188054149, 47.1625579878 ],
+							[ 8.518619361, 47.1626359061 ]
+						]
+					]
+				]
+			},
+			"properties" : {
+				"id" : "bd3faa70-ddd8-4afd-bdff-41bd5b7745df",
+				"kategorie" : "Parkverbot / Parkplatzreservation",
+				"ort" : "Kirchmattstrasse Hoehe PHZ",
+				"grund" : "Anlieferungen von Schulzimmercontainer",
+				"datumvon" : "2025-09-25",
+				"datumbis" : "2025-10-06",
+				"bemerkungen" : "Jeweils werktags, Montag bis Freitag\n\nSamstage und Sonntage jeweil frei",
+				"status" : "aktuell"
+			}
+		}
+	]
+}
