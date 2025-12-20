@@ -89,9 +89,20 @@
         </header>
 
         <div class="graph-panel">
-            <h2 class="panel-title">Canton & Municipality Map</h2>
-            <div class="graph-container" id="map-container">
-                <svg id="map-svg" width="100%" height="100%"></svg>
+            <h2 class="panel-title">Quick Info</h2>
+            <div style="padding: 20px;">
+                <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 16px; margin-bottom: 16px;">
+                    <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a;">Region</h3>
+                    <p style="font-size: 13px; color: #666;">Central Switzerland</p>
+                </div>
+                <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 16px; margin-bottom: 16px;">
+                    <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a;">Cantons</h3>
+                    <p style="font-size: 13px; color: #666;">Lucerne, Nidwalden</p>
+                </div>
+                <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 16px;">
+                    <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a;">Municipalities</h3>
+                    <p style="font-size: 13px; color: #666;">Lucerne (city), Kriens, Emmen</p>
+                </div>
             </div>
         </div>
 
@@ -102,8 +113,14 @@
             </div>
 
             <div style="flex: 1;">
+                <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 16px; margin-bottom: 24px; height: 400px;">
+                    <div id="map-container" style="width: 100%; height: 100%;">
+                        <svg id="map-svg" width="100%" height="100%"></svg>
+                    </div>
+                </div>
+
                 <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 24px; margin-bottom: 24px;">
-                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1a1a1a;">Featured Cantons</h3>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1a1a1a;">Canton</h3>
                     <div style="display: flex; flex-direction: column; gap: 16px;">
                         <div style="background: white; padding: 16px; border-left: 3px solid #dc2626;">
                             <h4 style="font-weight: 600; color: #1a1a1a; margin-bottom: 8px;">Canton of Lucerne</h4>
