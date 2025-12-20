@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Visualizations - OpenSwiss.info</title>
+    <title>Visualizations - OpenSwiss.info</title>
     <meta name="description" content="Interactive visualizations of Swiss open data - transport networks, real-time statistics, and more">
     <link rel="stylesheet" href="styles.css">
 
@@ -20,7 +20,7 @@
     </script>
 </head>
 <body>
-    <div class="viz-container">
+    <div class="container">
         <header class="header">
             <div class="header-left">
                 <div class="logo">open <span class="swiss">swiss</span> info</div>
@@ -65,82 +65,75 @@
             </nav>
         </header>
 
-        <main class="viz-main">
-            <div class="viz-hero">
-                <h1 class="viz-title">Swiss Transport Network</h1>
-                <p class="viz-subtitle">Interactive visualization of real-time Swiss public transport connections</p>
-            </div>
-
-            <div class="viz-content">
-                <div class="viz-display">
-                    <div id="transport-graph" class="main-graph-container">
-                        <svg id="network-svg"></svg>
-                        <div id="loading-indicator" class="loading-overlay">
-                            <div class="loading-text">Loading Swiss transport network...</div>
-                            <div class="loading-subtext">Connecting to real-time data</div>
-                        </div>
-                    </div>
-
-                    <div class="viz-info-panel">
-                        <div class="info-section">
-                            <h3 class="info-title">How to Use</h3>
-                            <ul class="info-list">
-                                <li><strong>Click</strong> on any city to view real-time train departures</li>
-                                <li><strong>Drag</strong> nodes to rearrange the network layout</li>
-                                <li><strong>Select</strong> a city from the dropdown for quick access</li>
-                                <li>Node size indicates city importance as a transport hub</li>
-                                <li>Lines show major train connections between cities</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-section">
-                            <h3 class="info-title">Select City</h3>
-                            <select id="city-selector" class="viz-select">
-                                <option value="">Select a city...</option>
-                                <option value="Zürich">Zürich</option>
-                                <option value="Bern">Bern</option>
-                                <option value="Genève">Genève</option>
-                                <option value="Basel">Basel</option>
-                                <option value="Lausanne">Lausanne</option>
-                                <option value="Luzern">Luzern</option>
-                                <option value="St. Gallen">St. Gallen</option>
-                                <option value="Lugano">Lugano</option>
-                                <option value="Winterthur">Winterthur</option>
-                                <option value="Thun">Thun</option>
-                                <option value="Interlaken">Interlaken</option>
-                                <option value="Montreux">Montreux</option>
-                            </select>
-                        </div>
-
-                        <div class="info-section">
-                            <h3 class="info-title">Live Departure Information</h3>
-                            <div id="station-info" class="station-info-display">
-                                Click on a city to view real-time train departures
-                            </div>
-                        </div>
-
-                        <div class="info-section">
-                            <h3 class="info-title">Data Source</h3>
-                            <p class="info-text">
-                                Real-time data from <a href="https://transport.opendata.ch/" target="_blank" rel="noopener">transport.opendata.ch</a>
-                                - The Swiss public transport API providing live timetable information across Switzerland.
-                            </p>
-                        </div>
-                    </div>
+        <div class="graph-panel">
+            <h2 class="panel-title">Select City</h2>
+            <div class="data-controls">
+                <div class="control-group">
+                    <select id="city-selector" class="control-input">
+                        <option value="">Select a city...</option>
+                        <option value="Zürich">Zürich</option>
+                        <option value="Bern">Bern</option>
+                        <option value="Genève">Genève</option>
+                        <option value="Basel">Basel</option>
+                        <option value="Lausanne">Lausanne</option>
+                        <option value="Luzern">Luzern</option>
+                        <option value="St. Gallen">St. Gallen</option>
+                        <option value="Lugano">Lugano</option>
+                        <option value="Winterthur">Winterthur</option>
+                        <option value="Thun">Thun</option>
+                        <option value="Interlaken">Interlaken</option>
+                        <option value="Montreux">Montreux</option>
+                    </select>
                 </div>
             </div>
-        </main>
 
-        <footer class="viz-footer">
-            <div class="footer-content">
-                <p>&copy; 2025 OpenSwiss.info - Visualizing Swiss open data</p>
-                <p class="footer-links">
-                    <a href="https://opendata.swiss/en" target="_blank">opendata.swiss</a> |
-                    <a href="https://transport.opendata.ch/" target="_blank">Transport API</a> |
-                    <a href="https://www.meteoswiss.admin.ch/services-and-publications/service/open-data.html" target="_blank">MeteoSwiss</a>
-                </p>
+            <h2 class="panel-title" style="margin-top: 24px;">How to Use</h2>
+            <div style="font-size: 12px; line-height: 1.6; color: #333;">
+                <p style="margin-bottom: 8px;"><strong>Click</strong> on any city to view real-time train departures</p>
+                <p style="margin-bottom: 8px;"><strong>Drag</strong> nodes to rearrange the network</p>
+                <p style="margin-bottom: 8px;">Node size indicates city importance as transport hub</p>
+                <p>Lines show major train connections</p>
             </div>
-        </footer>
+        </div>
+
+        <div class="chat-panel">
+            <div class="chat-header">
+                <h1 class="chat-title">Swiss Transport Network</h1>
+                <p class="chat-subtitle">Interactive visualization of real-time Swiss public transport connections</p>
+            </div>
+
+            <div id="transport-graph" style="height: 600px; position: relative;">
+                <svg id="network-svg" style="width: 100%; height: 100%; background: #fafafa; border: 1px solid #e0e0e0;"></svg>
+                <div id="loading-indicator" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #666; background: rgba(255,255,255,0.95); padding: 30px; border-radius: 8px;">
+                    <div style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Loading Swiss transport network...</div>
+                    <div style="font-size: 12px; color: #999;">Connecting to real-time data</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="citations-panel">
+            <h2 class="panel-title">Live Departures</h2>
+            <div id="station-info" style="background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 4px; padding: 16px; min-height: 200px; font-size: 13px; color: #666; margin-bottom: 24px;">
+                Click on a city to view real-time train departures
+            </div>
+
+            <h2 class="panel-title">Data Sources</h2>
+            <div class="citations-list">
+                <div class="citation">
+                    <div class="citation-number">[1]</div>
+                    <div class="citation-title"><a href="https://transport.opendata.ch/" target="_blank">Swiss Transport API</a></div>
+                    <div class="citation-source">transport.opendata.ch</div>
+                    <div class="citation-excerpt">Real-time Swiss public transport data providing live timetable information, connections, and stationboard data across Switzerland.</div>
+                </div>
+
+                <div class="citation">
+                    <div class="citation-number">[2]</div>
+                    <div class="citation-title"><a href="https://opendata.swiss/en" target="_blank">opendata.swiss</a></div>
+                    <div class="citation-source">Swiss Federal Government</div>
+                    <div class="citation-excerpt">Central portal for open government data from the Swiss public administration, providing access to thousands of datasets.</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -190,8 +183,8 @@
         // Setup SVG with responsive dimensions
         const container = document.getElementById('transport-graph');
         const svg = d3.select('#network-svg');
-        const width = Math.min(1000, window.innerWidth - 100);
-        const height = 700;
+        const width = container.offsetWidth || 700;
+        const height = 600;
 
         svg.attr('width', width).attr('height', height);
 
@@ -308,15 +301,14 @@
         // Fetch and display station info
         async function showStationInfo(station, cityName) {
             const infoDiv = document.getElementById('station-info');
-            infoDiv.innerHTML = `<div class="loading-station">Loading departures from ${cityName}...</div>`;
+            infoDiv.innerHTML = `<div style="color: #666; font-style: italic;">Loading departures from ${cityName}...</div>`;
 
             try {
                 const response = await fetch(`${API_BASE}/stationboard?station=${encodeURIComponent(station)}&limit=5`);
                 const data = await response.json();
 
                 if (data.stationboard && data.stationboard.length > 0) {
-                    let html = `<div class="station-name">${cityName}</div>`;
-                    html += '<div class="departure-list">';
+                    let html = `<div style="font-weight: 700; font-size: 14px; color: #1a1a1a; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #dc2626;">${cityName}</div>`;
                     data.stationboard.slice(0, 5).forEach(departure => {
                         const time = new Date(departure.stop.departure).toLocaleTimeString('de-CH', {
                             hour: '2-digit',
@@ -325,21 +317,20 @@
                         const category = departure.category || '';
                         const number = departure.number || '';
                         html += `
-                            <div class="departure-item">
-                                <span class="departure-time">${time}</span>
-                                <span class="departure-train">${category} ${number}</span>
-                                <span class="departure-destination">→ ${departure.to || 'N/A'}</span>
+                            <div style="margin-bottom: 8px; padding: 8px; background: white; border-left: 3px solid #dc2626; font-size: 12px;">
+                                <div style="font-weight: 700; color: #1a1a1a;">${time}</div>
+                                <div style="color: #666; font-size: 11px;">${category} ${number}</div>
+                                <div style="color: #333;">→ ${departure.to || 'N/A'}</div>
                             </div>
                         `;
                     });
-                    html += '</div>';
                     infoDiv.innerHTML = html;
                 } else {
-                    infoDiv.innerHTML = `<div class="no-data">No departures available for ${cityName}</div>`;
+                    infoDiv.innerHTML = `<div style="color: #999; font-style: italic;">No departures available for ${cityName}</div>`;
                 }
             } catch (error) {
                 console.error('Error fetching station data:', error);
-                infoDiv.innerHTML = `<div class="error-message">Could not load data for ${cityName}</div>`;
+                infoDiv.innerHTML = `<div style="color: #dc2626;">Could not load data for ${cityName}</div>`;
             }
         }
 
@@ -362,9 +353,14 @@
 
         // Responsive resize
         window.addEventListener('resize', () => {
-            const newWidth = Math.min(1000, window.innerWidth - 100);
+            const newWidth = container.offsetWidth || 700;
             svg.attr('width', newWidth);
-            // Just resize the SVG, maintain geographic positions
+            // Recalculate city positions for new width
+            const scale = Math.min(newWidth / 1000, 1);
+            swissCities.forEach(city => {
+                if (city.fx) city.fx = city.fx; // Keep fixed positions
+                if (city.fy) city.fy = city.fy;
+            });
         });
     </script>
 </body>
