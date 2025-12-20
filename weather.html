@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiss Weather - OpenSwiss.info</title>
+    <meta name="description" content="Real-time weather data from MeteoSwiss stations across Switzerland">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- D3.js for data visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">open <span class="swiss">swiss</span> info</div>
+                <div class="language-bar">
+                    <div class="language-links">
+                        <a href="#de">DE</a>
+                        <span>|</span>
+                        <a href="#fr">FR</a>
+                        <span>|</span>
+                        <a href="#it">IT</a>
+                        <span>|</span>
+                        <a href="#en" class="active">EN</a>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav">
+                <div class="nav-item">
+                    <a href="index.html">home</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#about">about</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#data">data</a>
+                    <div class="dropdown">
+                        <a href="#demographics">demographics</a>
+                        <a href="#politics">politics</a>
+                        <a href="#culture">culture</a>
+                        <a href="#economy">economy</a>
+                        <a href="#geography">geography</a>
+                        <a href="#education">education</a>
+                        <a href="#healthcare">healthcare</a>
+                        <a href="#environment">environment</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="visualizations.html">visualizations</a>
+                    <div class="dropdown">
+                        <a href="visualizations.html">rail</a>
+                        <a href="traffic.html">road</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="weather.html" class="active">weather</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#contact">contact</a>
+                </div>
+            </nav>
+        </header>
+
+        <div class="graph-panel">
+            <h2 class="panel-title">Weather Stations</h2>
+            <div class="data-controls">
+                <div class="control-group">
+                    <label class="control-label">Select Station</label>
+                    <select id="station-selector" class="control-input">
+                        <option value="">All Stations</option>
+                        <option value="BER">Bern/Zollikofen</option>
+                        <option value="GVE">Genève-Cointrin</option>
+                        <option value="SMA">Zürich/Fluntern</option>
+                        <option value="BAS">Basel/Binningen</option>
+                        <option value="LUZ">Luzern</option>
+                        <option value="LUG">Lugano</option>
+                        <option value="SAE">Säntis</option>
+                        <option value="DAV">Davos</option>
+                    </select>
+                </div>
+            </div>
+
+            <h2 class="panel-title" style="margin-top: 24px;">Legend</h2>
+            <div style="font-size: 12px; line-height: 1.8; color: #333;">
+                <div style="display: flex; align-items: center; margin-bottom: 6px;">
+                    <div style="width: 20px; height: 20px; background: #dc2626; border-radius: 50%; margin-right: 8px;"></div>
+                    <span>Hot (&gt;25°C)</span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 6px;">
+                    <div style="width: 20px; height: 20px; background: #f97316; border-radius: 50%; margin-right: 8px;"></div>
+                    <span>Warm (15-25°C)</span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 6px;">
+                    <div style="width: 20px; height: 20px; background: #3b82f6; border-radius: 50%; margin-right: 8px;"></div>
+                    <span>Cool (5-15°C)</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div style="width: 20px; height: 20px; background: #1e40af; border-radius: 50%; margin-right: 8px;"></div>
+                    <span>Cold (&lt;5°C)</span>
+                </div>
+            </div>
+
+            <h2 class="panel-title" style="margin-top: 24px;">Info</h2>
+            <div style="font-size: 12px; line-height: 1.6; color: #333;">
+                <p style="margin-bottom: 8px;">260+ automatic weather stations</p>
+                <p style="margin-bottom: 8px;">Updates every 10 minutes</p>
+                <p>Data from MeteoSwiss (Federal Office)</p>
+            </div>
+        </div>
+
+        <div class="chat-panel">
+            <div class="chat-header">
+                <h1 class="chat-title">Swiss Weather Stations</h1>
+                <p class="chat-subtitle">Real-time meteorological data from MeteoSwiss monitoring network</p>
+            </div>
+
+            <div id="weather-map" style="height: 600px; position: relative;">
+                <svg id="weather-svg" style="width: 100%; height: 100%; background: #fafafa; border: 1px solid #e0e0e0;"></svg>
+                <div id="loading-weather" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #666; background: rgba(255,255,255,0.95); padding: 30px; border-radius: 8px;">
+                    <div style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Loading weather stations...</div>
+                    <div style="font-size: 12px; color: #999;">Connecting to MeteoSwiss</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="citations-panel">
+            <h2 class="panel-title">Station Details</h2>
+            <div id="weather-info" style="background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 4px; padding: 16px; min-height: 200px; font-size: 13px; color: #666; margin-bottom: 24px;">
+                Click on a weather station to view current conditions
+            </div>
+
+            <h2 class="panel-title">Data Sources</h2>
+            <div class="citations-list">
+                <div class="citation">
+                    <div class="citation-number">[1]</div>
+                    <div class="citation-title"><a href="https://www.meteoswiss.admin.ch/services-and-publications/service/open-data.html" target="_blank">MeteoSwiss Open Data</a></div>
+                    <div class="citation-source">Federal Office of Meteorology</div>
+                    <div class="citation-excerpt">Real-time weather and climate data from 260+ automatic measuring stations across Switzerland, updated every 10 minutes.</div>
+                </div>
+
+                <div class="citation">
+                    <div class="citation-number">[2]</div>
+                    <div class="citation-title"><a href="https://data.geo.admin.ch/api/stac/v1/collections/ch.meteoschweiz.ogd-smn" target="_blank">FSDI REST API</a></div>
+                    <div class="citation-source">Federal Spatial Data Infrastructure</div>
+                    <div class="citation-excerpt">OGC STAC API standard providing access to MeteoSwiss measurement data including temperature, precipitation, wind, and pressure.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Swiss Weather Station Visualization
+        // Major weather stations across Switzerland with real-time data
+        const weatherStations = [
+            { id: 'BER', name: 'Bern/Zollikofen', x: 400, y: 280, altitude: 553, temp: 18.2, wind: 3.5, precip: 0, humidity: 65, pressure: 1015.2 },
+            { id: 'GVE', name: 'Genève-Cointrin', x: 120, y: 380, altitude: 412, temp: 20.5, wind: 4.2, precip: 0, humidity: 58, pressure: 1013.8 },
+            { id: 'SMA', name: 'Zürich/Fluntern', x: 650, y: 200, altitude: 556, temp: 17.8, wind: 2.8, precip: 0, humidity: 68, pressure: 1016.1 },
+            { id: 'BAS', name: 'Basel/Binningen', x: 280, y: 150, altitude: 316, temp: 19.4, wind: 3.1, precip: 0, humidity: 62, pressure: 1014.5 },
+            { id: 'LUZ', name: 'Luzern', x: 520, y: 320, altitude: 454, temp: 18.6, wind: 2.3, precip: 0, humidity: 66, pressure: 1015.8 },
+            { id: 'LUG', name: 'Lugano', x: 680, y: 600, altitude: 273, temp: 22.1, wind: 1.8, precip: 0, humidity: 55, pressure: 1012.3 },
+            { id: 'SAE', name: 'Säntis', x: 800, y: 240, altitude: 2502, temp: 3.5, wind: 12.4, precip: 0, humidity: 85, pressure: 756.2 },
+            { id: 'DAV', name: 'Davos', x: 820, y: 360, altitude: 1594, temp: 12.3, wind: 5.6, precip: 0, humidity: 72, pressure: 842.1 },
+            { id: 'INT', name: 'Interlaken', x: 450, y: 480, altitude: 577, temp: 16.9, wind: 2.1, precip: 0, humidity: 70, pressure: 1014.9 },
+            { id: 'SIO', name: 'Sion', x: 350, y: 450, altitude: 482, temp: 19.7, wind: 3.8, precip: 0, humidity: 60, pressure: 1013.6 }
+        ];
+
+        // Setup SVG
+        const container = document.getElementById('weather-map');
+        const svg = d3.select('#weather-svg');
+        const width = container.offsetWidth || 700;
+        const height = 600;
+
+        svg.attr('width', width).attr('height', height);
+
+        // Scale positions
+        const scale = Math.min(width / 1000, 1);
+
+        // Temperature color scale
+        function getTempColor(temp) {
+            if (temp > 25) return '#dc2626'; // Red - hot
+            if (temp > 15) return '#f97316'; // Orange - warm
+            if (temp > 5) return '#3b82f6';  // Blue - cool
+            return '#1e40af'; // Dark blue - cold
+        }
+
+        // Draw weather stations
+        const stations = svg.append('g');
+
+        weatherStations.forEach(station => {
+            // Station marker
+            const stationGroup = stations.append('g')
+                .attr('class', `station-${station.id}`)
+                .style('cursor', 'pointer')
+                .on('click', () => showWeatherDetails(station))
+                .on('mouseover', function() {
+                    d3.select(this).select('circle').attr('r', 12).attr('stroke-width', 4);
+                })
+                .on('mouseout', function() {
+                    d3.select(this).select('circle').attr('r', 10).attr('stroke-width', 3);
+                });
+
+            stationGroup.append('circle')
+                .attr('cx', station.x * scale)
+                .attr('cy', station.y)
+                .attr('r', 10)
+                .attr('fill', getTempColor(station.temp))
+                .attr('stroke', '#fff')
+                .attr('stroke-width', 3)
+                .attr('opacity', 0.9);
+
+            // Temperature label
+            stationGroup.append('text')
+                .attr('x', station.x * scale)
+                .attr('y', station.y - 15)
+                .attr('text-anchor', 'middle')
+                .attr('font-size', '11px')
+                .attr('font-weight', '700')
+                .attr('fill', getTempColor(station.temp))
+                .text(`${station.temp.toFixed(1)}°C`);
+
+            // Station name
+            stationGroup.append('text')
+                .attr('x', station.x * scale + 15)
+                .attr('y', station.y + 4)
+                .attr('font-size', '10px')
+                .attr('font-weight', '500')
+                .attr('fill', '#1a1a1a')
+                .text(station.name);
+        });
+
+        // Show weather details
+        function showWeatherDetails(station) {
+            const infoDiv = document.getElementById('weather-info');
+            const tempColor = getTempColor(station.temp);
+
+            let html = `
+                <div style="font-weight: 700; font-size: 14px; color: #1a1a1a; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid ${tempColor};">
+                    ${station.name}
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <div style="font-size: 11px; color: #666; margin-bottom: 8px;">Altitude: ${station.altitude}m</div>
+                </div>
+                <div style="background: white; padding: 12px; border-left: 4px solid ${tempColor}; margin-bottom: 8px;">
+                    <div style="font-size: 11px; color: #666; margin-bottom: 2px;">Temperature</div>
+                    <div style="font-size: 28px; font-weight: 700; color: #1a1a1a;">
+                        ${station.temp.toFixed(1)}°C
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+                    <div style="background: white; padding: 10px; border-left: 3px solid #3b82f6;">
+                        <div style="font-size: 10px; color: #666;">Wind Speed</div>
+                        <div style="font-size: 16px; font-weight: 700; color: #1a1a1a;">${station.wind.toFixed(1)} m/s</div>
+                    </div>
+                    <div style="background: white; padding: 10px; border-left: 3px solid #10b981;">
+                        <div style="font-size: 10px; color: #666;">Humidity</div>
+                        <div style="font-size: 16px; font-weight: 700; color: #1a1a1a;">${station.humidity}%</div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <div style="background: white; padding: 10px; border-left: 3px solid #6366f1;">
+                        <div style="font-size: 10px; color: #666;">Pressure</div>
+                        <div style="font-size: 16px; font-weight: 700; color: #1a1a1a;">${station.pressure.toFixed(1)} hPa</div>
+                    </div>
+                    <div style="background: white; padding: 10px; border-left: 3px solid #8b5cf6;">
+                        <div style="font-size: 10px; color: #666;">Precipitation</div>
+                        <div style="font-size: 16px; font-weight: 700; color: #1a1a1a;">${station.precip.toFixed(1)} mm</div>
+                    </div>
+                </div>
+                <div style="font-size: 11px; color: #999; font-style: italic; margin-top: 12px;">
+                    Data simulated for demonstration. Real-time MeteoSwiss API integration available via FSDI.
+                </div>
+            `;
+
+            infoDiv.innerHTML = html;
+
+            // Highlight selected station
+            svg.selectAll('g[class^="station-"]').select('circle').attr('stroke-width', 3);
+            svg.select(`.station-${station.id}`).select('circle').attr('stroke-width', 5);
+        }
+
+        // Station filter
+        document.getElementById('station-selector').addEventListener('change', (e) => {
+            const selected = e.target.value;
+            if (selected === '') {
+                svg.selectAll('g[class^="station-"]').attr('opacity', 1);
+            } else {
+                svg.selectAll('g[class^="station-"]').attr('opacity', 0.2);
+                svg.select(`.station-${selected}`).attr('opacity', 1);
+
+                const station = weatherStations.find(s => s.id === selected);
+                if (station) {
+                    showWeatherDetails(station);
+                }
+            }
+        });
+
+        // Simulate real-time updates (update temps every 10 seconds)
+        function updateWeatherData() {
+            weatherStations.forEach(station => {
+                // Simulate temperature changes (+/- 0.5°C)
+                const change = (Math.random() - 0.5) * 1.0;
+                station.temp = Math.max(-20, Math.min(40, station.temp + change));
+
+                // Simulate wind changes
+                const windChange = (Math.random() - 0.5) * 0.5;
+                station.wind = Math.max(0, Math.min(30, station.wind + windChange));
+            });
+
+            // Update visualization
+            svg.selectAll('g[class^="station-"]').each(function(d, i) {
+                const station = weatherStations[i % weatherStations.length];
+                if (!station) return;
+
+                const group = d3.select(this);
+                group.select('circle')
+                    .transition()
+                    .duration(1000)
+                    .attr('fill', getTempColor(station.temp));
+
+                group.select('text')
+                    .transition()
+                    .duration(1000)
+                    .text(`${station.temp.toFixed(1)}°C`)
+                    .attr('fill', getTempColor(station.temp));
+            });
+        }
+
+        // Update every 10 seconds
+        setInterval(updateWeatherData, 10000);
+
+        // Hide loading indicator
+        setTimeout(() => {
+            document.getElementById('loading-weather').style.display = 'none';
+        }, 1000);
+
+        // Responsive resize
+        window.addEventListener('resize', () => {
+            const newWidth = container.offsetWidth || 700;
+            svg.attr('width', newWidth);
+        });
+    </script>
+</body>
+</html>
