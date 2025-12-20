@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place - OpenSwiss.info</title>
+    <meta name="description" content="Interactive map of Swiss cantons and municipalities">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- D3.js for data visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">open <span class="swiss">swiss</span> info</div>
+                <div class="language-bar">
+                    <div class="language-links">
+                        <a href="#de">DE</a>
+                        <span>|</span>
+                        <a href="#fr">FR</a>
+                        <span>|</span>
+                        <a href="#it">IT</a>
+                        <span>|</span>
+                        <a href="#en" class="active">EN</a>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav">
+                <div class="nav-item">
+                    <a href="index.html">home</a>
+                </div>
+                <div class="nav-item">
+                    <a href="place.html" class="active">place</a>
+                    <div class="dropdown">
+                        <a href="#canton-lucerne">Canton of Lucerne</a>
+                        <div class="dropdown-item">
+                            <a href="#lucerne-city" style="padding-left: 32px;">Lucerne (city)</a>
+                            <div class="subdropdown">
+                                <a href="#rules">Rules</a>
+                                <a href="#national" style="padding-left: 32px;">National</a>
+                                <a href="#cantonal" style="padding-left: 32px;">Cantonal</a>
+                                <a href="#municipal" style="padding-left: 32px;">Municipal</a>
+                            </div>
+                        </div>
+                        <div class="dropdown-item">
+                            <a href="#kriens" style="padding-left: 32px;">Kriens</a>
+                            <div class="subdropdown">
+                                <a href="#rules-kriens">Rules</a>
+                                <a href="#national-kriens" style="padding-left: 32px;">National</a>
+                                <a href="#cantonal-kriens" style="padding-left: 32px;">Cantonal</a>
+                                <a href="#municipal-kriens" style="padding-left: 32px;">Municipal</a>
+                            </div>
+                        </div>
+                        <div class="dropdown-item">
+                            <a href="#emmen" style="padding-left: 32px;">Emmen</a>
+                            <div class="subdropdown">
+                                <a href="#rules-emmen">Rules</a>
+                                <a href="#national-emmen" style="padding-left: 32px;">National</a>
+                                <a href="#cantonal-emmen" style="padding-left: 32px;">Cantonal</a>
+                                <a href="#municipal-emmen" style="padding-left: 32px;">Municipal</a>
+                            </div>
+                        </div>
+                        <a href="#canton-nidwalden">Canton of Nidwalden</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#data">data</a>
+                    <div class="dropdown">
+                        <a href="#demographics">demographics</a>
+                        <a href="#politics">politics</a>
+                        <a href="#culture">culture</a>
+                        <a href="#economy">economy</a>
+                        <a href="#geography">geography</a>
+                        <a href="#education">education</a>
+                        <a href="#healthcare">healthcare</a>
+                        <a href="#environment">environment</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="visualizations.html">visualizations</a>
+                    <div class="dropdown">
+                        <a href="visualizations.html">rail</a>
+                        <a href="traffic.html">road</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="graph-panel">
+            <h2 class="panel-title">Canton & Municipality Map</h2>
+            <div class="graph-container" id="map-container">
+                <svg id="map-svg" width="100%" height="100%"></svg>
+            </div>
+        </div>
+
+        <div class="chat-panel">
+            <div class="chat-header">
+                <h1 class="chat-title">Swiss Places</h1>
+                <p class="chat-subtitle">Explore cantons and municipalities in central Switzerland</p>
+            </div>
+
+            <div style="flex: 1;">
+                <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 24px; margin-bottom: 24px;">
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1a1a1a;">Featured Cantons</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div style="background: white; padding: 16px; border-left: 3px solid #dc2626;">
+                            <h4 style="font-weight: 600; color: #1a1a1a; margin-bottom: 8px;">Canton of Lucerne</h4>
+                            <p style="font-size: 14px; color: #666; margin-bottom: 8px;">Central Switzerland canton with major cities including Lucerne, Kriens, and Emmen.</p>
+                            <p style="font-size: 12px; color: #999;">Population: ~410,000</p>
+                        </div>
+                        <div style="background: white; padding: 16px; border-left: 3px solid #dc2626;">
+                            <h4 style="font-weight: 600; color: #1a1a1a; margin-bottom: 8px;">Canton of Nidwalden</h4>
+                            <p style="font-size: 14px; color: #666; margin-bottom: 8px;">Neighboring canton in central Switzerland, known for its alpine landscapes.</p>
+                            <p style="font-size: 12px; color: #999;">Population: ~44,000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 24px;">
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1a1a1a;">Municipalities</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+                        <div style="background: white; padding: 12px; border: 1px solid #e0e0e0;">
+                            <h4 style="font-weight: 600; font-size: 14px; color: #dc2626; margin-bottom: 4px;">Lucerne (city)</h4>
+                            <p style="font-size: 12px; color: #666;">Capital of Canton Lucerne</p>
+                        </div>
+                        <div style="background: white; padding: 12px; border: 1px solid #e0e0e0;">
+                            <h4 style="font-weight: 600; font-size: 14px; color: #dc2626; margin-bottom: 4px;">Kriens</h4>
+                            <p style="font-size: 12px; color: #666;">Municipality in Lucerne</p>
+                        </div>
+                        <div style="background: white; padding: 12px; border: 1px solid #e0e0e0;">
+                            <h4 style="font-weight: 600; font-size: 14px; color: #dc2626; margin-bottom: 4px;">Emmen</h4>
+                            <p style="font-size: 12px; color: #666;">Municipality in Lucerne</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="citations-panel">
+            <h2 class="panel-title">Map Legend</h2>
+            <div class="citations-list">
+                <div class="citation">
+                    <div class="citation-number">[1]</div>
+                    <div class="citation-title">Canton Boundaries</div>
+                    <div class="citation-excerpt">
+                        Canton outlines are shown in gray. Featured cantons (Lucerne and Nidwalden) are highlighted.
+                    </div>
+                </div>
+                <div class="citation">
+                    <div class="citation-number">[2]</div>
+                    <div class="citation-title">Municipalities</div>
+                    <div class="citation-excerpt">
+                        Red markers indicate municipalities: Lucerne (city), Kriens, and Emmen.
+                    </div>
+                </div>
+                <div class="citation">
+                    <div class="citation-number">[3]</div>
+                    <div class="citation-title">Interactive Map</div>
+                    <div class="citation-excerpt">
+                        Hover over cantons and cities to see more information. Click to navigate to specific locations.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // SVG dimensions
+        const svg = d3.select('#map-svg');
+        const container = document.getElementById('map-container');
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        svg.attr('viewBox', `0 0 ${width} ${height}`);
+
+        // Simplified Switzerland map with Canton of Lucerne and Nidwalden
+        // Coordinates are approximate and simplified for visualization
+        const cantons = [
+            {
+                name: 'Canton of Lucerne',
+                id: 'lucerne',
+                path: 'M 250,200 L 380,180 L 420,220 L 410,280 L 360,320 L 280,310 L 240,260 Z',
+                featured: true
+            },
+            {
+                name: 'Canton of Nidwalden',
+                id: 'nidwalden',
+                path: 'M 360,320 L 410,280 L 450,310 L 440,360 L 390,380 L 350,360 Z',
+                featured: true
+            }
+        ];
+
+        const cities = [
+            { name: 'Lucerne', x: 320, y: 250, type: 'city' },
+            { name: 'Kriens', x: 300, y: 270, type: 'municipality' },
+            { name: 'Emmen', x: 340, y: 280, type: 'municipality' }
+        ];
+
+        // Draw Switzerland outline (simplified)
+        svg.append('rect')
+            .attr('x', 150)
+            .attr('y', 120)
+            .attr('width', 400)
+            .attr('height', 360)
+            .attr('fill', '#f5f5f5')
+            .attr('stroke', '#ccc')
+            .attr('stroke-width', 2)
+            .attr('rx', 10);
+
+        // Draw cantons
+        const cantonGroup = svg.append('g').attr('class', 'cantons');
+
+        cantonGroup.selectAll('path')
+            .data(cantons)
+            .enter()
+            .append('path')
+            .attr('d', d => d.path)
+            .attr('fill', d => d.featured ? '#fecaca' : '#e5e5e5')
+            .attr('stroke', '#dc2626')
+            .attr('stroke-width', 2)
+            .attr('opacity', 0.7)
+            .style('cursor', 'pointer')
+            .on('mouseover', function(event, d) {
+                d3.select(this)
+                    .attr('opacity', 1)
+                    .attr('stroke-width', 3);
+            })
+            .on('mouseout', function(event, d) {
+                d3.select(this)
+                    .attr('opacity', 0.7)
+                    .attr('stroke-width', 2);
+            });
+
+        // Add canton labels
+        cantonGroup.selectAll('text')
+            .data(cantons)
+            .enter()
+            .append('text')
+            .attr('x', d => d.id === 'lucerne' ? 320 : 400)
+            .attr('y', d => d.id === 'lucerne' ? 230 : 340)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '14px')
+            .attr('font-weight', 'bold')
+            .attr('fill', '#dc2626')
+            .text(d => d.name.replace('Canton of ', ''));
+
+        // Draw cities
+        const cityGroup = svg.append('g').attr('class', 'cities');
+
+        cityGroup.selectAll('circle')
+            .data(cities)
+            .enter()
+            .append('circle')
+            .attr('cx', d => d.x)
+            .attr('cy', d => d.y)
+            .attr('r', 8)
+            .attr('fill', '#dc2626')
+            .attr('stroke', 'white')
+            .attr('stroke-width', 2)
+            .style('cursor', 'pointer')
+            .on('mouseover', function(event, d) {
+                d3.select(this)
+                    .attr('r', 12)
+                    .attr('fill', '#b91c1c');
+            })
+            .on('mouseout', function(event, d) {
+                d3.select(this)
+                    .attr('r', 8)
+                    .attr('fill', '#dc2626');
+            });
+
+        // Add city labels
+        cityGroup.selectAll('text')
+            .data(cities)
+            .enter()
+            .append('text')
+            .attr('x', d => d.x)
+            .attr('y', d => d.y - 15)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '12px')
+            .attr('font-weight', '600')
+            .attr('fill', '#1a1a1a')
+            .text(d => d.name);
+
+        // Add title
+        svg.append('text')
+            .attr('x', width / 2)
+            .attr('y', 40)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '20px')
+            .attr('font-weight', 'bold')
+            .attr('fill', '#1a1a1a')
+            .text('Central Switzerland');
+
+        svg.append('text')
+            .attr('x', width / 2)
+            .attr('y', 65)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '14px')
+            .attr('fill', '#666')
+            .text('Canton of Lucerne & Canton of Nidwalden');
+    </script>
+</body>
+</html>
