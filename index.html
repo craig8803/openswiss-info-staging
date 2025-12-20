@@ -6,7 +6,10 @@
     <title>OpenSwiss.info - Swiss Knowledge Base</title>
     <meta name="description" content="Swiss design-inspired knowledge base and data visualization platform">
     <link rel="stylesheet" href="styles.css">
-    
+
+    <!-- D3.js for data visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
@@ -57,39 +60,35 @@
         </header>
 
         <div class="graph-panel">
-            <h2 class="panel-title">Data visualisation</h2>
-            <div class="graph-container">
-                <div class="data-nodes">
-                    <div class="node large" style="top: 20%; left: 30%;"></div>
-                    <div class="node" style="top: 40%; left: 60%;"></div>
-                    <div class="node" style="top: 60%; left: 20%;"></div>
-                    <div class="node" style="top: 30%; left: 80%;"></div>
-                    <div class="node large" style="top: 70%; left: 70%;"></div>
-                    <div class="node" style="top: 50%; left: 40%;"></div>
-                    <div class="node" style="top: 80%; left: 50%;"></div>
-                    <div class="connection" style="top: 20%; left: 30%; width: 120px; transform: rotate(25deg);"></div>
-                    <div class="connection" style="top: 40%; left: 60%; width: 80px; transform: rotate(-45deg);"></div>
-                    <div class="connection" style="top: 60%; left: 20%; width: 100px; transform: rotate(15deg);"></div>
-                </div>
-                <div class="graph-placeholder">
-                    JSON data visualization<br>
-                    Interactive node network
+            <h2 class="panel-title">Swiss Transport Network</h2>
+            <div id="transport-graph" class="graph-container">
+                <svg id="network-svg"></svg>
+                <div id="loading-indicator" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #666;">
+                    <div style="font-size: 14px; margin-bottom: 10px;">Loading Swiss transport network...</div>
+                    <div style="font-size: 12px;">Connecting to real-time data</div>
                 </div>
             </div>
-            
+
             <div class="data-controls">
                 <div class="control-group">
-                    <label class="control-label">Filter by Type</label>
-                    <select class="control-input">
-                        <option>All Nodes</option>
-                        <option>Organizations</option>
-                        <option>People</option>
-                        <option>Concepts</option>
+                    <label class="control-label">Select City</label>
+                    <select id="city-selector" class="control-input">
+                        <option value="">Select a city...</option>
+                        <option value="Zürich">Zürich</option>
+                        <option value="Bern">Bern</option>
+                        <option value="Genève">Genève</option>
+                        <option value="Basel">Basel</option>
+                        <option value="Lausanne">Lausanne</option>
+                        <option value="Luzern">Luzern</option>
+                        <option value="St. Gallen">St. Gallen</option>
+                        <option value="Lugano">Lugano</option>
                     </select>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">Search</label>
-                    <input type="text" class="control-input" placeholder="Search graph data...">
+                    <label class="control-label">View Info</label>
+                    <div id="station-info" class="control-input" style="padding: 8px; min-height: 40px; background: #f5f5f5;">
+                        Click on a city to view real-time departures
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,7 +160,7 @@
     </div>
 
     <script>
-        // Simple interaction for demo purposes
+        // Chat functionality
         const chatInput = document.querySelector('.chat-input');
         const sendButton = document.querySelector('.send-button');
         const exampleConversation = document.querySelector('.example-conversation');
@@ -179,8 +178,6 @@
             if (message) {
                 addMessage(message, true);
                 chatInput.value = '';
-                
-                // Simulate response after a delay
                 setTimeout(() => {
                     addMessage("Thank you for your question. I'm processing your query and will provide a comprehensive response with relevant citations from our Swiss knowledge base.");
                 }, 800);
@@ -189,18 +186,198 @@
 
         sendButton.addEventListener('click', handleSend);
         chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                handleSend();
+            if (e.key === 'Enter') handleSend();
+        });
+
+        // Swiss Transport Network Visualization
+        const API_BASE = 'https://transport.opendata.ch/v1';
+
+        // Major Swiss cities with their main stations
+        const swissCities = [
+            { id: 'zurich', name: 'Zürich', station: 'Zürich HB', importance: 10 },
+            { id: 'bern', name: 'Bern', station: 'Bern', importance: 9 },
+            { id: 'geneva', name: 'Genève', station: 'Genève', importance: 9 },
+            { id: 'basel', name: 'Basel', station: 'Basel SBB', importance: 8 },
+            { id: 'lausanne', name: 'Lausanne', station: 'Lausanne', importance: 7 },
+            { id: 'luzern', name: 'Luzern', station: 'Luzern', importance: 6 },
+            { id: 'stgallen', name: 'St. Gallen', station: 'St. Gallen', importance: 6 },
+            { id: 'lugano', name: 'Lugano', station: 'Lugano', importance: 5 },
+            { id: 'winterthur', name: 'Winterthur', station: 'Winterthur', importance: 5 },
+            { id: 'thun', name: 'Thun', station: 'Thun', importance: 4 },
+            { id: 'interlaken', name: 'Interlaken', station: 'Interlaken Ost', importance: 4 },
+            { id: 'montreux', name: 'Montreux', station: 'Montreux', importance: 4 }
+        ];
+
+        // Define major connections between Swiss cities
+        const connections = [
+            { source: 'zurich', target: 'bern' },
+            { source: 'zurich', target: 'basel' },
+            { source: 'zurich', target: 'luzern' },
+            { source: 'zurich', target: 'winterthur' },
+            { source: 'zurich', target: 'stgallen' },
+            { source: 'bern', target: 'basel' },
+            { source: 'bern', target: 'lausanne' },
+            { source: 'bern', target: 'thun' },
+            { source: 'bern', target: 'luzern' },
+            { source: 'geneva', target: 'lausanne' },
+            { source: 'lausanne', target: 'montreux' },
+            { source: 'lausanne', target: 'bern' },
+            { source: 'basel', target: 'zurich' },
+            { source: 'basel', target: 'bern' },
+            { source: 'luzern', target: 'zurich' },
+            { source: 'luzern', target: 'interlaken' },
+            { source: 'thun', target: 'interlaken' },
+            { source: 'lugano', target: 'luzern' },
+            { source: 'stgallen', target: 'winterthur' }
+        ];
+
+        // Setup SVG
+        const container = document.getElementById('transport-graph');
+        const svg = d3.select('#network-svg');
+        const width = 300;
+        const height = 500;
+
+        svg.attr('width', width).attr('height', height);
+
+        // Create color scale based on importance
+        const colorScale = d3.scaleSequential(d3.interpolateBlues)
+            .domain([3, 10]);
+
+        // Create force simulation
+        const simulation = d3.forceSimulation(swissCities)
+            .force('link', d3.forceLink(connections)
+                .id(d => d.id)
+                .distance(60))
+            .force('charge', d3.forceManyBody().strength(-150))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('collision', d3.forceCollide().radius(20));
+
+        // Create links
+        const link = svg.append('g')
+            .selectAll('line')
+            .data(connections)
+            .join('line')
+            .attr('stroke', '#999')
+            .attr('stroke-opacity', 0.6)
+            .attr('stroke-width', 2);
+
+        // Create nodes
+        const node = svg.append('g')
+            .selectAll('circle')
+            .data(swissCities)
+            .join('circle')
+            .attr('r', d => 3 + d.importance)
+            .attr('fill', d => colorScale(d.importance))
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 2)
+            .style('cursor', 'pointer')
+            .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended));
+
+        // Add labels
+        const labels = svg.append('g')
+            .selectAll('text')
+            .data(swissCities)
+            .join('text')
+            .text(d => d.name)
+            .attr('font-size', '10px')
+            .attr('dx', 12)
+            .attr('dy', 4)
+            .attr('fill', '#333')
+            .style('pointer-events', 'none');
+
+        // Update positions on simulation tick
+        simulation.on('tick', () => {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+
+            node
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+
+            labels
+                .attr('x', d => d.x)
+                .attr('y', d => d.y);
+        });
+
+        // Drag functions
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        // Click on node to show station info
+        node.on('click', async (event, d) => {
+            event.stopPropagation();
+            showStationInfo(d.station, d.name);
+
+            // Highlight selected node
+            node.attr('stroke-width', n => n === d ? 4 : 2);
+        });
+
+        // Fetch and display station info
+        async function showStationInfo(station, cityName) {
+            const infoDiv = document.getElementById('station-info');
+            infoDiv.innerHTML = `<div style="color: #666;">Loading departures from ${cityName}...</div>`;
+
+            try {
+                const response = await fetch(`${API_BASE}/stationboard?station=${encodeURIComponent(station)}&limit=5`);
+                const data = await response.json();
+
+                if (data.stationboard && data.stationboard.length > 0) {
+                    let html = `<div style="font-weight: bold; margin-bottom: 5px;">${cityName}</div>`;
+                    html += '<div style="font-size: 11px;">';
+                    data.stationboard.slice(0, 3).forEach(departure => {
+                        const time = new Date(departure.stop.departure).toLocaleTimeString('de-CH', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                        html += `<div style="margin: 3px 0;">${time} → ${departure.to || 'N/A'}</div>`;
+                    });
+                    html += '</div>';
+                    infoDiv.innerHTML = html;
+                } else {
+                    infoDiv.innerHTML = `<div style="color: #666;">No departures available for ${cityName}</div>`;
+                }
+            } catch (error) {
+                console.error('Error fetching station data:', error);
+                infoDiv.innerHTML = `<div style="color: #999;">Could not load data for ${cityName}</div>`;
+            }
+        }
+
+        // City selector
+        document.getElementById('city-selector').addEventListener('change', (e) => {
+            const cityName = e.target.value;
+            if (cityName) {
+                const city = swissCities.find(c => c.name === cityName);
+                if (city) {
+                    showStationInfo(city.station, city.name);
+                    node.attr('stroke-width', n => n.name === cityName ? 4 : 2);
+                }
             }
         });
 
-        // Graph node interactions
-        const nodes = document.querySelectorAll('.node');
-        nodes.forEach(node => {
-            node.addEventListener('click', () => {
-                console.log('Node clicked - would show detailed data view');
-            });
-        });
+        // Hide loading indicator after simulation starts
+        setTimeout(() => {
+            document.getElementById('loading-indicator').style.display = 'none';
+        }, 1000);
     </script>
 </body>
 </html>
