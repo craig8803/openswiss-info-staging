@@ -193,7 +193,7 @@
         svg.attr('width', width).attr('height', height);
 
         // Create color scale based on importance
-        const colorScale = d3.scaleSequential(d3.interpolateBlues)
+        const colorScale = d3.scaleSequential(d3.interpolateReds)
             .domain([3, 10]);
 
         // Initialize positions based on geography
