@@ -148,19 +148,20 @@
         const API_BASE = 'https://transport.opendata.ch/v1';
 
         // Major Swiss cities with their main stations
+        // Positioned to reflect actual Swiss geography
         const swissCities = [
-            { id: 'zurich', name: 'Zürich', station: 'Zürich HB', importance: 10 },
-            { id: 'bern', name: 'Bern', station: 'Bern', importance: 9 },
-            { id: 'geneva', name: 'Genève', station: 'Genève', importance: 9 },
-            { id: 'basel', name: 'Basel', station: 'Basel SBB', importance: 8 },
-            { id: 'lausanne', name: 'Lausanne', station: 'Lausanne', importance: 7 },
-            { id: 'luzern', name: 'Luzern', station: 'Luzern', importance: 6 },
-            { id: 'stgallen', name: 'St. Gallen', station: 'St. Gallen', importance: 6 },
-            { id: 'lugano', name: 'Lugano', station: 'Lugano', importance: 5 },
-            { id: 'winterthur', name: 'Winterthur', station: 'Winterthur', importance: 5 },
-            { id: 'thun', name: 'Thun', station: 'Thun', importance: 4 },
-            { id: 'interlaken', name: 'Interlaken', station: 'Interlaken Ost', importance: 4 },
-            { id: 'montreux', name: 'Montreux', station: 'Montreux', importance: 4 }
+            { id: 'zurich', name: 'Zürich', station: 'Zürich HB', importance: 10, x: 650, y: 200 },
+            { id: 'bern', name: 'Bern', station: 'Bern', importance: 9, x: 400, y: 280 },
+            { id: 'geneva', name: 'Genève', station: 'Genève', importance: 9, x: 120, y: 380 },
+            { id: 'basel', name: 'Basel', station: 'Basel SBB', importance: 8, x: 280, y: 150 },
+            { id: 'lausanne', name: 'Lausanne', station: 'Lausanne', importance: 7, x: 200, y: 400 },
+            { id: 'luzern', name: 'Luzern', station: 'Luzern', importance: 6, x: 520, y: 320 },
+            { id: 'stgallen', name: 'St. Gallen', station: 'St. Gallen', importance: 6, x: 850, y: 160 },
+            { id: 'lugano', name: 'Lugano', station: 'Lugano', importance: 5, x: 680, y: 600 },
+            { id: 'winterthur', name: 'Winterthur', station: 'Winterthur', importance: 5, x: 720, y: 180 },
+            { id: 'thun', name: 'Thun', station: 'Thun', importance: 4, x: 420, y: 350 },
+            { id: 'interlaken', name: 'Interlaken', station: 'Interlaken Ost', importance: 4, x: 450, y: 480 },
+            { id: 'montreux', name: 'Montreux', station: 'Montreux', importance: 4, x: 230, y: 430 }
         ];
 
         // Define major connections between Swiss cities
@@ -198,14 +199,30 @@
         const colorScale = d3.scaleSequential(d3.interpolateBlues)
             .domain([3, 10]);
 
-        // Create force simulation
+        // Initialize positions based on geography
+        swissCities.forEach(city => {
+            // Scale positions if screen is smaller
+            const scale = Math.min(width / 1000, 1);
+            city.x = city.x * scale;
+            city.y = city.y;
+        });
+
+        // Create force simulation with weaker forces to maintain geographic layout
         const simulation = d3.forceSimulation(swissCities)
             .force('link', d3.forceLink(connections)
                 .id(d => d.id)
-                .distance(100))
-            .force('charge', d3.forceManyBody().strength(-300))
-            .force('center', d3.forceCenter(width / 2, height / 2))
-            .force('collision', d3.forceCollide().radius(30));
+                .distance(d => {
+                    // Calculate actual distance between cities to maintain proportions
+                    const source = swissCities.find(c => c.id === d.source.id || c.id === d.source);
+                    const target = swissCities.find(c => c.id === d.target.id || c.id === d.target);
+                    const dx = source.x - target.x;
+                    const dy = source.y - target.y;
+                    return Math.sqrt(dx * dx + dy * dy) * 0.8;
+                })
+                .strength(0.3))
+            .force('charge', d3.forceManyBody().strength(-100))
+            .force('collision', d3.forceCollide().radius(35))
+            .alphaDecay(0.05);
 
         // Create links
         const link = svg.append('g')
@@ -347,8 +364,7 @@
         window.addEventListener('resize', () => {
             const newWidth = Math.min(1000, window.innerWidth - 100);
             svg.attr('width', newWidth);
-            simulation.force('center', d3.forceCenter(newWidth / 2, height / 2));
-            simulation.alpha(0.3).restart();
+            // Just resize the SVG, maintain geographic positions
         });
     </script>
 </body>
