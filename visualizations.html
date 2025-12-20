@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualizations - OpenSwiss.info</title>
+    <meta name="description" content="Interactive visualizations of Swiss open data - transport networks, real-time statistics, and more">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- D3.js for data visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</head>
+<body>
+    <div class="viz-container">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">open <span class="swiss">swiss</span> info</div>
+                <div class="language-bar">
+                    <div class="language-links">
+                        <a href="#de">DE</a>
+                        <span>|</span>
+                        <a href="#fr">FR</a>
+                        <span>|</span>
+                        <a href="#it">IT</a>
+                        <span>|</span>
+                        <a href="#en" class="active">EN</a>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav">
+                <div class="nav-item">
+                    <a href="index.html">home</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#about">about</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#data">data</a>
+                    <div class="dropdown">
+                        <a href="#demographics">demographics</a>
+                        <a href="#politics">politics</a>
+                        <a href="#culture">culture</a>
+                        <a href="#economy">economy</a>
+                        <a href="#geography">geography</a>
+                        <a href="#education">education</a>
+                        <a href="#healthcare">healthcare</a>
+                        <a href="#environment">environment</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="visualizations.html" class="active">visualizations</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#contact">contact</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="viz-main">
+            <div class="viz-hero">
+                <h1 class="viz-title">Swiss Transport Network</h1>
+                <p class="viz-subtitle">Interactive visualization of real-time Swiss public transport connections</p>
+            </div>
+
+            <div class="viz-content">
+                <div class="viz-display">
+                    <div id="transport-graph" class="main-graph-container">
+                        <svg id="network-svg"></svg>
+                        <div id="loading-indicator" class="loading-overlay">
+                            <div class="loading-text">Loading Swiss transport network...</div>
+                            <div class="loading-subtext">Connecting to real-time data</div>
+                        </div>
+                    </div>
+
+                    <div class="viz-info-panel">
+                        <div class="info-section">
+                            <h3 class="info-title">How to Use</h3>
+                            <ul class="info-list">
+                                <li><strong>Click</strong> on any city to view real-time train departures</li>
+                                <li><strong>Drag</strong> nodes to rearrange the network layout</li>
+                                <li><strong>Select</strong> a city from the dropdown for quick access</li>
+                                <li>Node size indicates city importance as a transport hub</li>
+                                <li>Lines show major train connections between cities</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-section">
+                            <h3 class="info-title">Select City</h3>
+                            <select id="city-selector" class="viz-select">
+                                <option value="">Select a city...</option>
+                                <option value="Zürich">Zürich</option>
+                                <option value="Bern">Bern</option>
+                                <option value="Genève">Genève</option>
+                                <option value="Basel">Basel</option>
+                                <option value="Lausanne">Lausanne</option>
+                                <option value="Luzern">Luzern</option>
+                                <option value="St. Gallen">St. Gallen</option>
+                                <option value="Lugano">Lugano</option>
+                                <option value="Winterthur">Winterthur</option>
+                                <option value="Thun">Thun</option>
+                                <option value="Interlaken">Interlaken</option>
+                                <option value="Montreux">Montreux</option>
+                            </select>
+                        </div>
+
+                        <div class="info-section">
+                            <h3 class="info-title">Live Departure Information</h3>
+                            <div id="station-info" class="station-info-display">
+                                Click on a city to view real-time train departures
+                            </div>
+                        </div>
+
+                        <div class="info-section">
+                            <h3 class="info-title">Data Source</h3>
+                            <p class="info-text">
+                                Real-time data from <a href="https://transport.opendata.ch/" target="_blank" rel="noopener">transport.opendata.ch</a>
+                                - The Swiss public transport API providing live timetable information across Switzerland.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="viz-footer">
+            <div class="footer-content">
+                <p>&copy; 2025 OpenSwiss.info - Visualizing Swiss open data</p>
+                <p class="footer-links">
+                    <a href="https://opendata.swiss/en" target="_blank">opendata.swiss</a> |
+                    <a href="https://transport.opendata.ch/" target="_blank">Transport API</a> |
+                    <a href="https://www.meteoswiss.admin.ch/services-and-publications/service/open-data.html" target="_blank">MeteoSwiss</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Swiss Transport Network Visualization
+        const API_BASE = 'https://transport.opendata.ch/v1';
+
+        // Major Swiss cities with their main stations
+        const swissCities = [
+            { id: 'zurich', name: 'Zürich', station: 'Zürich HB', importance: 10 },
+            { id: 'bern', name: 'Bern', station: 'Bern', importance: 9 },
+            { id: 'geneva', name: 'Genève', station: 'Genève', importance: 9 },
+            { id: 'basel', name: 'Basel', station: 'Basel SBB', importance: 8 },
+            { id: 'lausanne', name: 'Lausanne', station: 'Lausanne', importance: 7 },
+            { id: 'luzern', name: 'Luzern', station: 'Luzern', importance: 6 },
+            { id: 'stgallen', name: 'St. Gallen', station: 'St. Gallen', importance: 6 },
+            { id: 'lugano', name: 'Lugano', station: 'Lugano', importance: 5 },
+            { id: 'winterthur', name: 'Winterthur', station: 'Winterthur', importance: 5 },
+            { id: 'thun', name: 'Thun', station: 'Thun', importance: 4 },
+            { id: 'interlaken', name: 'Interlaken', station: 'Interlaken Ost', importance: 4 },
+            { id: 'montreux', name: 'Montreux', station: 'Montreux', importance: 4 }
+        ];
+
+        // Define major connections between Swiss cities
+        const connections = [
+            { source: 'zurich', target: 'bern' },
+            { source: 'zurich', target: 'basel' },
+            { source: 'zurich', target: 'luzern' },
+            { source: 'zurich', target: 'winterthur' },
+            { source: 'zurich', target: 'stgallen' },
+            { source: 'bern', target: 'basel' },
+            { source: 'bern', target: 'lausanne' },
+            { source: 'bern', target: 'thun' },
+            { source: 'bern', target: 'luzern' },
+            { source: 'geneva', target: 'lausanne' },
+            { source: 'lausanne', target: 'montreux' },
+            { source: 'lausanne', target: 'bern' },
+            { source: 'basel', target: 'zurich' },
+            { source: 'basel', target: 'bern' },
+            { source: 'luzern', target: 'zurich' },
+            { source: 'luzern', target: 'interlaken' },
+            { source: 'thun', target: 'interlaken' },
+            { source: 'lugano', target: 'luzern' },
+            { source: 'stgallen', target: 'winterthur' }
+        ];
+
+        // Setup SVG with responsive dimensions
+        const container = document.getElementById('transport-graph');
+        const svg = d3.select('#network-svg');
+        const width = Math.min(1000, window.innerWidth - 100);
+        const height = 700;
+
+        svg.attr('width', width).attr('height', height);
+
+        // Create color scale based on importance
+        const colorScale = d3.scaleSequential(d3.interpolateBlues)
+            .domain([3, 10]);
+
+        // Create force simulation
+        const simulation = d3.forceSimulation(swissCities)
+            .force('link', d3.forceLink(connections)
+                .id(d => d.id)
+                .distance(100))
+            .force('charge', d3.forceManyBody().strength(-300))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('collision', d3.forceCollide().radius(30));
+
+        // Create links
+        const link = svg.append('g')
+            .selectAll('line')
+            .data(connections)
+            .join('line')
+            .attr('stroke', '#999')
+            .attr('stroke-opacity', 0.6)
+            .attr('stroke-width', 3);
+
+        // Create nodes
+        const node = svg.append('g')
+            .selectAll('circle')
+            .data(swissCities)
+            .join('circle')
+            .attr('r', d => 5 + d.importance * 1.5)
+            .attr('fill', d => colorScale(d.importance))
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 3)
+            .style('cursor', 'pointer')
+            .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended));
+
+        // Add labels
+        const labels = svg.append('g')
+            .selectAll('text')
+            .data(swissCities)
+            .join('text')
+            .text(d => d.name)
+            .attr('font-size', '14px')
+            .attr('font-weight', '500')
+            .attr('dx', d => 8 + d.importance * 1.5)
+            .attr('dy', 5)
+            .attr('fill', '#1a1a1a')
+            .style('pointer-events', 'none');
+
+        // Update positions on simulation tick
+        simulation.on('tick', () => {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+
+            node
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+
+            labels
+                .attr('x', d => d.x)
+                .attr('y', d => d.y);
+        });
+
+        // Drag functions
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        // Click on node to show station info
+        node.on('click', async (event, d) => {
+            event.stopPropagation();
+            showStationInfo(d.station, d.name);
+
+            // Highlight selected node
+            node.attr('stroke-width', n => n === d ? 5 : 3);
+        });
+
+        // Fetch and display station info
+        async function showStationInfo(station, cityName) {
+            const infoDiv = document.getElementById('station-info');
+            infoDiv.innerHTML = `<div class="loading-station">Loading departures from ${cityName}...</div>`;
+
+            try {
+                const response = await fetch(`${API_BASE}/stationboard?station=${encodeURIComponent(station)}&limit=5`);
+                const data = await response.json();
+
+                if (data.stationboard && data.stationboard.length > 0) {
+                    let html = `<div class="station-name">${cityName}</div>`;
+                    html += '<div class="departure-list">';
+                    data.stationboard.slice(0, 5).forEach(departure => {
+                        const time = new Date(departure.stop.departure).toLocaleTimeString('de-CH', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                        const category = departure.category || '';
+                        const number = departure.number || '';
+                        html += `
+                            <div class="departure-item">
+                                <span class="departure-time">${time}</span>
+                                <span class="departure-train">${category} ${number}</span>
+                                <span class="departure-destination">→ ${departure.to || 'N/A'}</span>
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                    infoDiv.innerHTML = html;
+                } else {
+                    infoDiv.innerHTML = `<div class="no-data">No departures available for ${cityName}</div>`;
+                }
+            } catch (error) {
+                console.error('Error fetching station data:', error);
+                infoDiv.innerHTML = `<div class="error-message">Could not load data for ${cityName}</div>`;
+            }
+        }
+
+        // City selector
+        document.getElementById('city-selector').addEventListener('change', (e) => {
+            const cityName = e.target.value;
+            if (cityName) {
+                const city = swissCities.find(c => c.name === cityName);
+                if (city) {
+                    showStationInfo(city.station, city.name);
+                    node.attr('stroke-width', n => n.name === cityName ? 5 : 3);
+                }
+            }
+        });
+
+        // Hide loading indicator after simulation starts
+        setTimeout(() => {
+            document.getElementById('loading-indicator').style.display = 'none';
+        }, 1000);
+
+        // Responsive resize
+        window.addEventListener('resize', () => {
+            const newWidth = Math.min(1000, window.innerWidth - 100);
+            svg.attr('width', newWidth);
+            simulation.force('center', d3.forceCenter(newWidth / 2, height / 2));
+            simulation.alpha(0.3).restart();
+        });
+    </script>
+</body>
+</html>
