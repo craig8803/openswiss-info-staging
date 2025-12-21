@@ -312,40 +312,98 @@
         // Add popup to canton border
         cantonPolygon.bindPopup('<div style="text-align: center;"><strong>Canton of Lucerne</strong><br><span style="font-size: 12px; color: #666;">Area: 1,493 km²</span></div>');
 
-        // Major municipalities with their coordinates
+        // All 79 municipalities with their coordinates
         const municipalities = [
-            // Major cities
+            // District: Lucerne (17 municipalities)
             { name: 'Lucerne', lat: 47.0502, lon: 8.3093, district: 'Lucerne', type: 'city' },
-            { name: 'Kriens', lat: 47.0357, lon: 8.2789, district: 'Lucerne', type: 'town' },
-            { name: 'Emmen', lat: 47.0808, lon: 8.3009, district: 'Lucerne', type: 'town' },
-            { name: 'Horw', lat: 47.0173, lon: 8.3097, district: 'Lucerne', type: 'town' },
-
-            // District: Lucerne
-            { name: 'Ebikon', lat: 47.0798, lon: 8.3395, district: 'Lucerne', type: 'town' },
             { name: 'Adligenswil', lat: 47.0626, lon: 8.3606, district: 'Lucerne', type: 'municipality' },
-            { name: 'Meggen', lat: 47.0426, lon: 8.3761, district: 'Lucerne', type: 'municipality' },
-            { name: 'Weggis', lat: 47.0306, lon: 8.4364, district: 'Lucerne', type: 'municipality' },
-            { name: 'Vitznau', lat: 47.0073, lon: 8.4859, district: 'Lucerne', type: 'municipality' },
+            { name: 'Buchrain', lat: 47.0992, lon: 8.3386, district: 'Lucerne', type: 'municipality' },
+            { name: 'Dierikon', lat: 47.0711, lon: 8.3447, district: 'Lucerne', type: 'municipality' },
+            { name: 'Ebikon', lat: 47.0798, lon: 8.3395, district: 'Lucerne', type: 'town' },
+            { name: 'Emmen', lat: 47.0808, lon: 8.3009, district: 'Lucerne', type: 'town' },
             { name: 'Greppen', lat: 47.0253, lon: 8.4161, district: 'Lucerne', type: 'municipality' },
+            { name: 'Honau', lat: 47.0289, lon: 8.2450, district: 'Lucerne', type: 'municipality' },
+            { name: 'Horw', lat: 47.0173, lon: 8.3097, district: 'Lucerne', type: 'town' },
+            { name: 'Kriens', lat: 47.0357, lon: 8.2789, district: 'Lucerne', type: 'town' },
             { name: 'Malters', lat: 47.0371, lon: 8.1869, district: 'Lucerne', type: 'municipality' },
+            { name: 'Meggen', lat: 47.0426, lon: 8.3761, district: 'Lucerne', type: 'municipality' },
+            { name: 'Meierskappel', lat: 47.1053, lon: 8.3717, district: 'Lucerne', type: 'municipality' },
+            { name: 'Root', lat: 47.1108, lon: 8.3878, district: 'Lucerne', type: 'municipality' },
+            { name: 'Schwarzenberg', lat: 47.0144, lon: 8.2167, district: 'Lucerne', type: 'municipality' },
+            { name: 'Udligenswil', lat: 47.0861, lon: 8.3897, district: 'Lucerne', type: 'municipality' },
+            { name: 'Vitznau', lat: 47.0073, lon: 8.4859, district: 'Lucerne', type: 'municipality' },
+            { name: 'Weggis', lat: 47.0306, lon: 8.4364, district: 'Lucerne', type: 'municipality' },
 
-            // District: Hochdorf
+            // District: Hochdorf (14 municipalities)
             { name: 'Hochdorf', lat: 47.1675, lon: 8.2944, district: 'Hochdorf', type: 'town' },
-            { name: 'Rothenburg', lat: 47.0978, lon: 8.2639, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Aesch', lat: 47.1389, lon: 8.2792, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Ballwil', lat: 47.1542, lon: 8.3372, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Ermensee', lat: 47.1861, lon: 8.2542, district: 'Hochdorf', type: 'municipality' },
             { name: 'Eschenbach', lat: 47.1347, lon: 8.3186, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Gelfingen', lat: 47.1928, lon: 8.2694, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Hitzkirch', lat: 47.2225, lon: 8.2667, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Hohenrain', lat: 47.2297, lon: 8.3133, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Inwil', lat: 47.1189, lon: 8.3458, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Rain', lat: 47.1508, lon: 8.3056, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Römerswil', lat: 47.1983, lon: 8.2169, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Rothenburg', lat: 47.0978, lon: 8.2639, district: 'Hochdorf', type: 'municipality' },
 
-            // District: Sursee
+            // District: Sursee (17 municipalities)
             { name: 'Sursee', lat: 47.1711, lon: 8.1097, district: 'Sursee', type: 'town' },
-            { name: 'Sempach', lat: 47.1314, lon: 8.1889, district: 'Sursee', type: 'municipality' },
             { name: 'Beromünster', lat: 47.2081, lon: 8.1883, district: 'Sursee', type: 'municipality' },
+            { name: 'Büron', lat: 47.1847, lon: 8.0856, district: 'Sursee', type: 'municipality' },
+            { name: 'Buttisholz', lat: 47.1150, lon: 8.0989, district: 'Sursee', type: 'municipality' },
+            { name: 'Eich', lat: 47.1536, lon: 8.1622, district: 'Sursee', type: 'municipality' },
+            { name: 'Geuensee', lat: 47.1819, lon: 8.2183, district: 'Sursee', type: 'municipality' },
+            { name: 'Grosswangen', lat: 47.1442, lon: 8.0472, district: 'Sursee', type: 'municipality' },
+            { name: 'Gunzwil', lat: 47.2028, lon: 8.0711, district: 'Sursee', type: 'municipality' },
+            { name: 'Hildisrieden', lat: 47.1028, lon: 8.2486, district: 'Sursee', type: 'municipality' },
+            { name: 'Knutwil', lat: 47.1972, lon: 8.0525, district: 'Sursee', type: 'municipality' },
+            { name: 'Mauensee', lat: 47.1739, lon: 8.0686, district: 'Sursee', type: 'municipality' },
+            { name: 'Neuenkirch', lat: 47.1008, lon: 8.2042, district: 'Sursee', type: 'municipality' },
+            { name: 'Nottwil', lat: 47.1367, lon: 8.1350, district: 'Sursee', type: 'municipality' },
+            { name: 'Oberkirch', lat: 47.1592, lon: 8.1281, district: 'Sursee', type: 'municipality' },
+            { name: 'Rickenbach', lat: 47.1892, lon: 8.0322, district: 'Sursee', type: 'municipality' },
+            { name: 'Schenkon', lat: 47.1211, lon: 8.1994, district: 'Sursee', type: 'municipality' },
+            { name: 'Schlierbach', lat: 47.1578, lon: 8.0897, district: 'Sursee', type: 'municipality' },
+            { name: 'Sempach', lat: 47.1314, lon: 8.1889, district: 'Sursee', type: 'municipality' },
+            { name: 'Triengen', lat: 47.2311, lon: 8.0789, district: 'Sursee', type: 'municipality' },
 
-            // District: Willisau
+            // District: Willisau (22 municipalities)
             { name: 'Willisau', lat: 47.1219, lon: 7.9939, district: 'Willisau', type: 'town' },
+            { name: 'Alberswil', lat: 47.1564, lon: 7.9964, district: 'Willisau', type: 'municipality' },
+            { name: 'Altbüron', lat: 47.1844, lon: 7.9308, district: 'Willisau', type: 'municipality' },
+            { name: 'Altishofen', lat: 47.1942, lon: 7.9758, district: 'Willisau', type: 'municipality' },
+            { name: 'Dagmersellen', lat: 47.2153, lon: 7.9867, district: 'Willisau', type: 'municipality' },
+            { name: 'Egolzwil', lat: 47.1817, lon: 8.0028, district: 'Willisau', type: 'municipality' },
+            { name: 'Ettiswil', lat: 47.1408, lon: 7.9658, district: 'Willisau', type: 'municipality' },
+            { name: 'Fischbach', lat: 47.1169, lon: 7.9508, district: 'Willisau', type: 'municipality' },
+            { name: 'Gettnau', lat: 47.1164, lon: 8.0317, district: 'Willisau', type: 'municipality' },
+            { name: 'Grossdietwil', lat: 47.1661, lon: 7.9281, district: 'Willisau', type: 'municipality' },
+            { name: 'Hergiswil bei Willisau', lat: 47.0928, lon: 8.0119, district: 'Willisau', type: 'municipality' },
+            { name: 'Luthern', lat: 47.0889, lon: 7.9661, district: 'Willisau', type: 'municipality' },
+            { name: 'Menznau', lat: 47.0892, lon: 8.0450, district: 'Willisau', type: 'municipality' },
+            { name: 'Nebikon', lat: 47.1919, lon: 7.9950, district: 'Willisau', type: 'municipality' },
+            { name: 'Ohmstal', lat: 47.2183, lon: 7.9556, district: 'Willisau', type: 'municipality' },
+            { name: 'Pfaffnau', lat: 47.2267, lon: 7.9050, district: 'Willisau', type: 'municipality' },
+            { name: 'Reiden', lat: 47.2431, lon: 7.9656, district: 'Willisau', type: 'municipality' },
+            { name: 'Roggliswil', lat: 47.1061, lon: 8.0056, district: 'Willisau', type: 'municipality' },
             { name: 'Schötz', lat: 47.1667, lon: 8.0167, district: 'Willisau', type: 'municipality' },
+            { name: 'Uffikon', lat: 47.1500, lon: 8.0192, district: 'Willisau', type: 'municipality' },
+            { name: 'Wauwil', lat: 47.1806, lon: 8.0358, district: 'Willisau', type: 'municipality' },
+            { name: 'Winikon', lat: 47.1383, lon: 8.0725, district: 'Willisau', type: 'municipality' },
+            { name: 'Zell', lat: 47.1358, lon: 7.9436, district: 'Willisau', type: 'municipality' },
 
-            // District: Entlebuch
+            // District: Entlebuch (9 municipalities)
             { name: 'Entlebuch', lat: 46.9972, lon: 8.0556, district: 'Entlebuch', type: 'town' },
+            { name: 'Doppleschwand', lat: 46.9372, lon: 8.0758, district: 'Entlebuch', type: 'municipality' },
+            { name: 'Escholzmatt-Marbach', lat: 46.9122, lon: 8.0192, district: 'Entlebuch', type: 'municipality' },
+            { name: 'Flühli', lat: 46.8806, lon: 8.0114, district: 'Entlebuch', type: 'municipality' },
+            { name: 'Hasle', lat: 47.0264, lon: 8.0661, district: 'Entlebuch', type: 'municipality' },
+            { name: 'Romoos', lat: 47.0014, lon: 7.9883, district: 'Entlebuch', type: 'municipality' },
+            { name: 'Ruswil', lat: 47.0850, lon: 8.1289, district: 'Entlebuch', type: 'municipality' },
             { name: 'Schüpfheim', lat: 46.9503, lon: 8.0169, district: 'Entlebuch', type: 'municipality' },
+            { name: 'Werthenstein', lat: 47.0492, lon: 8.1242, district: 'Entlebuch', type: 'municipality' },
             { name: 'Wolhusen', lat: 47.0606, lon: 8.0758, district: 'Entlebuch', type: 'municipality' }
         ];
 
