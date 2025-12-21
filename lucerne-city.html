@@ -6,6 +6,7 @@
     <title>Lucerne (city) - OpenSwiss.info</title>
     <meta name="description" content="Lucerne city overview and information">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
     <div class="container">
@@ -208,39 +209,23 @@
                     </div>
                 </div>
 
+                <!-- Interactive Map -->
+                <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 24px; margin-bottom: 24px;">
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px; color: #1a1a1a;">City Map</h3>
+                    <div id="city-map" style="width: 100%; height: 500px; border: 1px solid #e0e0e0; border-radius: 4px; overflow: hidden;"></div>
+                    <div id="district-info" style="margin-top: 16px; padding: 12px; background: white; border: 1px solid #e0e0e0; border-radius: 4px; min-height: 60px;">
+                        <p style="font-size: 13px; color: #666; text-align: center;">Click on the map to explore Lucerne city districts</p>
+                    </div>
+                </div>
+
                 <!-- Districts -->
                 <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 24px;">
-                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px; color: #1a1a1a;">Districts & Quarters</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px;">
-                        <a href="#altstadt" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Altstadt</a>
-                        <a href="#bruch" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Bruch</a>
-                        <a href="#dreilinden" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Dreilinden</a>
-                        <a href="#geissenstein" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Geissenstein</a>
-                        <a href="#grosshof" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Grosshof</a>
-                        <a href="#grenzhof" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Grenzhof</a>
-                        <a href="#hirschmatt" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Hirschmatt</a>
-                        <a href="#hobel" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Hobel</a>
-                        <a href="#hochwacht" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Hochwacht</a>
-                        <a href="#hubelmatt-west" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Hubelmatt West</a>
-                        <a href="#hubelmatt-ost" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Hubelmatt Ost</a>
-                        <a href="#in-gassen" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">In Gassen</a>
-                        <a href="#iselimatt" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Iselimatt</a>
-                        <a href="#kantonsspital" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Kantonsspital</a>
-                        <a href="#littau" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Littau</a>
-                        <a href="#luzernerhof" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Luzernerhof</a>
-                        <a href="#maihof" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Maihof</a>
-                        <a href="#matt" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Matt</a>
-                        <a href="#neustadt" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Neustadt</a>
-                        <a href="#obergrund-allmend" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Obergrund-Allmend</a>
-                        <a href="#reussbühl" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Reussbühl</a>
-                        <a href="#ruopigen" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Ruopigen</a>
-                        <a href="#sagen" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Sagen</a>
-                        <a href="#schönbühl" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Schönbühl</a>
-                        <a href="#steghof" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Steghof</a>
-                        <a href="#tribschen" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Tribschen</a>
-                        <a href="#unterlachen-schädrüti" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Unterlachen-Schädrüti</a>
-                        <a href="#untergrund-gütsch" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Untergrund-Gütsch</a>
-                        <a href="#würzenbach-schädrütihalde" style="padding: 10px 12px; background: white; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;">Würzenbach-Schädrütihalde</a>
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px; color: #1a1a1a;">
+                        Districts & Quarters
+                        <span style="font-size: 14px; font-weight: 400; color: #999;">(29 total)</span>
+                    </h3>
+                    <div id="districts-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px;">
+                        <!-- District tiles will be generated by JavaScript -->
                     </div>
                 </div>
             </div>
@@ -273,5 +258,231 @@
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize Leaflet map centered on Lucerne city
+        const map = L.map('city-map').setView([47.0502, 8.3093], 13);
+
+        // Add OpenStreetMap tile layer with grayscale filter
+        const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19,
+            className: 'grayscale-tiles'
+        }).addTo(map);
+
+        // Add CSS for grayscale map
+        const style = document.createElement('style');
+        style.textContent = `
+            .grayscale-tiles {
+                filter: grayscale(100%) contrast(1.1) brightness(1.05);
+                -webkit-filter: grayscale(100%) contrast(1.1) brightness(1.05);
+            }
+
+            .district-tile {
+                padding: 10px 12px;
+                background: white;
+                color: #666;
+                text-decoration: none;
+                border: 1px solid #e0e0e0;
+                border-radius: 4px;
+                font-size: 13px;
+                transition: all 0.2s;
+                cursor: pointer;
+                text-align: left;
+            }
+
+            .district-tile:hover {
+                border-color: #dc2626;
+                background: #fffbfb;
+                transform: translateY(-1px);
+                box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
+            }
+
+            .district-tile.active {
+                background: #dc2626;
+                color: white;
+                border-color: #dc2626;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Lucerne city boundary (simplified polygon)
+        const cityBoundary = [
+            // Northern boundary
+            [47.0850, 8.2800],
+            [47.0880, 8.2900],
+            [47.0900, 8.3000],
+            [47.0910, 8.3100],
+            [47.0900, 8.3200],
+            [47.0880, 8.3300],
+
+            // Eastern boundary
+            [47.0850, 8.3400],
+            [47.0800, 8.3500],
+            [47.0750, 8.3550],
+            [47.0700, 8.3580],
+            [47.0650, 8.3600],
+            [47.0600, 8.3580],
+            [47.0550, 8.3550],
+
+            // Southeastern boundary
+            [47.0500, 8.3500],
+            [47.0450, 8.3450],
+            [47.0400, 8.3400],
+            [47.0350, 8.3350],
+            [47.0300, 8.3300],
+
+            // Southern boundary (near lake)
+            [47.0280, 8.3250],
+            [47.0260, 8.3200],
+            [47.0240, 8.3150],
+            [47.0220, 8.3100],
+            [47.0200, 8.3050],
+            [47.0180, 8.3000],
+            [47.0170, 8.2950],
+
+            // Western boundary
+            [47.0180, 8.2900],
+            [47.0200, 8.2850],
+            [47.0250, 8.2800],
+            [47.0300, 8.2750],
+            [47.0350, 8.2720],
+            [47.0400, 8.2700],
+            [47.0450, 8.2700],
+            [47.0500, 8.2720],
+            [47.0550, 8.2750],
+
+            // Northwestern boundary
+            [47.0600, 8.2750],
+            [47.0650, 8.2750],
+            [47.0700, 8.2760],
+            [47.0750, 8.2780],
+            [47.0800, 8.2800]
+        ];
+
+        // Add city boundary as red polygon
+        const cityPolygon = L.polygon(cityBoundary, {
+            color: '#dc2626',
+            weight: 3,
+            fillColor: '#dc2626',
+            fillOpacity: 0.05,
+            opacity: 0.8
+        }).addTo(map);
+
+        cityPolygon.bindPopup('<div style="text-align: center;"><strong>City of Lucerne</strong><br><span style="font-size: 12px; color: #666;">Area: 29.1 km²</span></div>');
+
+        // Districts with approximate coordinates
+        const districts = [
+            { name: 'Altstadt', lat: 47.0515, lon: 8.3055, description: 'Historic old town center' },
+            { name: 'Neustadt', lat: 47.0485, lon: 8.3120, description: 'New town area' },
+            { name: 'Hirschmatt', lat: 47.0440, lon: 8.3090, description: 'Residential district' },
+            { name: 'Tribschen', lat: 47.0380, lon: 8.3200, description: 'Lakeside area' },
+            { name: 'Bruch', lat: 47.0580, lon: 8.3180, description: 'Northern district' },
+            { name: 'Dreilinden', lat: 47.0620, lon: 8.3250, description: 'Northern residential area' },
+            { name: 'Geissenstein', lat: 47.0350, lon: 8.2950, description: 'Western district' },
+            { name: 'Grosshof', lat: 47.0280, lon: 8.3050, description: 'Southern area' },
+            { name: 'Grenzhof', lat: 47.0680, lon: 8.3100, description: 'Northern border area' },
+            { name: 'Hobel', lat: 47.0450, lon: 8.2950, description: 'Western residential area' },
+            { name: 'Hochwacht', lat: 47.0550, lon: 8.2900, description: 'Northwestern district' },
+            { name: 'Hubelmatt West', lat: 47.0400, lon: 8.3000, description: 'Western Hubelmatt' },
+            { name: 'Hubelmatt Ost', lat: 47.0420, lon: 8.3050, description: 'Eastern Hubelmatt' },
+            { name: 'In Gassen', lat: 47.0500, lon: 8.3000, description: 'Central area' },
+            { name: 'Iselimatt', lat: 47.0320, lon: 8.3150, description: 'Southern district' },
+            { name: 'Kantonsspital', lat: 47.0380, lon: 8.3090, description: 'Cantonal hospital area' },
+            { name: 'Littau', lat: 47.0550, lon: 8.2750, description: 'Western suburban area' },
+            { name: 'Luzernerhof', lat: 47.0480, lon: 8.3180, description: 'Eastern district' },
+            { name: 'Maihof', lat: 47.0420, lon: 8.3180, description: 'Eastern residential area' },
+            { name: 'Matt', lat: 47.0530, lon: 8.3020, description: 'Central northern area' },
+            { name: 'Obergrund-Allmend', lat: 47.0350, lon: 8.2850, description: 'Western suburban area' },
+            { name: 'Reussbühl', lat: 47.0680, lon: 8.3300, description: 'Northeastern district' },
+            { name: 'Ruopigen', lat: 47.0750, lon: 8.3200, description: 'Northern area' },
+            { name: 'Sagen', lat: 47.0650, lon: 8.3000, description: 'Northern district' },
+            { name: 'Schönbühl', lat: 47.0600, lon: 8.2850, description: 'Northwestern area' },
+            { name: 'Steghof', lat: 47.0520, lon: 8.3250, description: 'Eastern district' },
+            { name: 'Unterlachen-Schädrüti', lat: 47.0280, lon: 8.3200, description: 'Southern lakeside' },
+            { name: 'Untergrund-Gütsch', lat: 47.0450, lon: 8.3350, description: 'Southeastern hills' },
+            { name: 'Würzenbach-Schädrütihalde', lat: 47.0320, lon: 8.3300, description: 'Southern hills' }
+        ];
+
+        // Add markers for districts
+        const districtMarkers = {};
+        districts.forEach(district => {
+            const icon = L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="
+                    width: 8px;
+                    height: 8px;
+                    background: #666666;
+                    border: 2px solid white;
+                    border-radius: 50%;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                    transition: all 0.2s;
+                "></div>`,
+                iconSize: [8, 8],
+                iconAnchor: [4, 4]
+            });
+
+            const marker = L.marker([district.lat, district.lon], { icon: icon })
+                .addTo(map);
+
+            marker.bindPopup(`
+                <div style="text-align: center;">
+                    <strong>${district.name}</strong><br>
+                    <span style="font-size: 12px; color: #666;">${district.description}</span>
+                </div>
+            `);
+
+            // Update info panel on marker hover
+            marker.on('mouseover', function() {
+                const infoPanel = document.getElementById('district-info');
+                infoPanel.innerHTML = `
+                    <div>
+                        <h4 style="font-size: 16px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">${district.name}</h4>
+                        <p style="font-size: 13px; color: #666;">${district.description}</p>
+                    </div>
+                `;
+            });
+
+            districtMarkers[district.name] = marker;
+        });
+
+        // Generate district tiles
+        const grid = document.getElementById('districts-grid');
+        districts.forEach(district => {
+            const tile = document.createElement('button');
+            tile.className = 'district-tile';
+            tile.textContent = district.name;
+
+            tile.addEventListener('click', () => {
+                // Remove active class from all tiles
+                document.querySelectorAll('.district-tile').forEach(t => t.classList.remove('active'));
+                tile.classList.add('active');
+
+                // Zoom to district on map
+                map.setView([district.lat, district.lon], 15, { animate: true });
+
+                // Open marker popup
+                const marker = districtMarkers[district.name];
+                if (marker) {
+                    marker.openPopup();
+                }
+
+                // Update info panel
+                const infoPanel = document.getElementById('district-info');
+                infoPanel.innerHTML = `
+                    <div>
+                        <h4 style="font-size: 16px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">${district.name}</h4>
+                        <p style="font-size: 13px; color: #666;">${district.description}</p>
+                    </div>
+                `;
+
+                // Scroll map into view
+                document.getElementById('city-map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            grid.appendChild(tile);
+        });
+    </script>
 </body>
 </html>
