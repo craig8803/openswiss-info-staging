@@ -64,6 +64,11 @@ body {
     color: #1a1a1a;
 }
 
+.nav a.active {
+    color: #dc2626;
+    font-weight: 600;
+}
+
 .nav-item {
     position: relative;
 }
