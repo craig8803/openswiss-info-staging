@@ -7,8 +7,11 @@
     <meta name="description" content="Canton of Lucerne overview and municipalities">
     <link rel="stylesheet" href="styles.css">
 
-    <!-- D3.js for interactive map -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Leaflet CSS for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Leaflet JS for interactive maps -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
     <div class="container">
@@ -198,11 +201,9 @@
                 <!-- Interactive Map -->
                 <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 24px; margin-bottom: 24px;">
                     <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px; color: #1a1a1a;">Canton Map</h3>
-                    <div id="canton-map" style="width: 100%; height: 500px; background: #f5f5f5; border: 1px solid #e0e0e0;">
-                        <svg id="lucerne-map-svg" style="width: 100%; height: 100%;"></svg>
-                    </div>
+                    <div id="canton-map" style="width: 100%; height: 500px; border: 1px solid #e0e0e0; border-radius: 4px; overflow: hidden;"></div>
                     <div id="municipality-info" style="margin-top: 16px; padding: 12px; background: white; border: 1px solid #e0e0e0; border-radius: 4px; min-height: 60px;">
-                        <p style="font-size: 13px; color: #666; text-align: center;">Hover over a municipality to see details</p>
+                        <p style="font-size: 13px; color: #666; text-align: center;">Click on the map to explore Canton Lucerne</p>
                     </div>
                 </div>
 
@@ -321,247 +322,133 @@
     </div>
 
     <script>
-        // Interactive Canton Map
-        const svg = d3.select('#lucerne-map-svg');
-        const width = document.getElementById('canton-map').offsetWidth;
-        const height = 500;
+        // Initialize Leaflet map centered on Canton Lucerne
+        // Lucerne city coordinates: 47.0502° N, 8.3093° E
+        const map = L.map('canton-map').setView([47.0502, 8.3093], 10);
 
-        svg.attr('viewBox', `0 0 ${width} ${height}`);
+        // Add OpenStreetMap tile layer (completely free and open source)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
 
-        // Geographically positioned municipalities
-        // Positioned to reflect actual geography of Canton Lucerne
+        // Major municipalities with their coordinates
         const municipalities = [
-            // District: Lucerne (central, around Lake Lucerne)
-            { name: 'Lucerne', district: 'Lucerne', x: 310, y: 280, size: 'large' },
-            { name: 'Kriens', district: 'Lucerne', x: 280, y: 270, size: 'medium' },
-            { name: 'Horw', district: 'Lucerne', x: 320, y: 310, size: 'small' },
-            { name: 'Meggen', district: 'Lucerne', x: 350, y: 300, size: 'small' },
-            { name: 'Adligenswil', district: 'Lucerne', x: 360, y: 280, size: 'small' },
-            { name: 'Udligenswil', district: 'Lucerne', x: 380, y: 270, size: 'small' },
-            { name: 'Meierskappel', district: 'Lucerne', x: 400, y: 260, size: 'small' },
-            { name: 'Ebikon', district: 'Lucerne', x: 340, y: 270, size: 'medium' },
-            { name: 'Buchrain', district: 'Lucerne', x: 330, y: 240, size: 'small' },
-            { name: 'Root', district: 'Lucerne', x: 360, y: 240, size: 'small' },
-            { name: 'Dierikon', district: 'Lucerne', x: 350, y: 250, size: 'small' },
-            { name: 'Greppen', district: 'Lucerne', x: 390, y: 300, size: 'small' },
-            { name: 'Weggis', district: 'Lucerne', x: 420, y: 290, size: 'small' },
-            { name: 'Vitznau', district: 'Lucerne', x: 430, y: 310, size: 'small' },
-            { name: 'Schwarzenberg', district: 'Lucerne', x: 250, y: 250, size: 'small' },
-            { name: 'Malters', district: 'Lucerne', x: 240, y: 280, size: 'small' },
-            { name: 'Honau', district: 'Lucerne', x: 220, y: 300, size: 'small' },
+            // Major cities
+            { name: 'Lucerne', lat: 47.0502, lon: 8.3093, district: 'Lucerne', type: 'city' },
+            { name: 'Kriens', lat: 47.0357, lon: 8.2789, district: 'Lucerne', type: 'town' },
+            { name: 'Emmen', lat: 47.0808, lon: 8.3009, district: 'Lucerne', type: 'town' },
+            { name: 'Horw', lat: 47.0173, lon: 8.3097, district: 'Lucerne', type: 'town' },
 
-            // District: Hochdorf (southeast, lowlands)
-            { name: 'Hochdorf', district: 'Hochdorf', x: 380, y: 220, size: 'medium' },
-            { name: 'Rothenburg', district: 'Hochdorf', x: 340, y: 210, size: 'small' },
-            { name: 'Rain', district: 'Hochdorf', x: 370, y: 200, size: 'small' },
-            { name: 'Inwil', district: 'Hochdorf', x: 390, y: 200, size: 'small' },
-            { name: 'Eschenbach', district: 'Hochdorf', x: 410, y: 210, size: 'small' },
-            { name: 'Ballwil', district: 'Hochdorf', x: 360, y: 190, size: 'small' },
-            { name: 'Ermensee', district: 'Hochdorf', x: 370, y: 180, size: 'small' },
-            { name: 'Hitzkirch', district: 'Hochdorf', x: 340, y: 170, size: 'small' },
-            { name: 'Gelfingen', district: 'Hochdorf', x: 350, y: 170, size: 'small' },
-            { name: 'Aesch', district: 'Hochdorf', x: 330, y: 180, size: 'small' },
-            { name: 'Hohenrain', district: 'Hochdorf', x: 360, y: 160, size: 'small' },
-            { name: 'Römerswil', district: 'Hochdorf', x: 320, y: 190, size: 'small' },
+            // District: Lucerne
+            { name: 'Ebikon', lat: 47.0798, lon: 8.3395, district: 'Lucerne', type: 'town' },
+            { name: 'Adligenswil', lat: 47.0626, lon: 8.3606, district: 'Lucerne', type: 'municipality' },
+            { name: 'Meggen', lat: 47.0426, lon: 8.3761, district: 'Lucerne', type: 'municipality' },
+            { name: 'Weggis', lat: 47.0306, lon: 8.4364, district: 'Lucerne', type: 'municipality' },
+            { name: 'Vitznau', lat: 47.0073, lon: 8.4859, district: 'Lucerne', type: 'municipality' },
+            { name: 'Greppen', lat: 47.0253, lon: 8.4161, district: 'Lucerne', type: 'municipality' },
+            { name: 'Malters', lat: 47.0371, lon: 8.1869, district: 'Lucerne', type: 'municipality' },
 
-            // District: Sursee (north-central)
-            { name: 'Sursee', district: 'Sursee', x: 300, y: 150, size: 'medium' },
-            { name: 'Sempach', district: 'Sursee', x: 320, y: 170, size: 'small' },
-            { name: 'Neuenkirch', district: 'Sursee', x: 290, y: 200, size: 'small' },
-            { name: 'Nottwil', district: 'Sursee', x: 310, y: 140, size: 'small' },
-            { name: 'Oberkirch', district: 'Sursee', x: 280, y: 140, size: 'small' },
-            { name: 'Eich', district: 'Sursee', x: 310, y: 160, size: 'small' },
-            { name: 'Schenkon', district: 'Sursee', x: 290, y: 170, size: 'small' },
-            { name: 'Geuensee', district: 'Sursee', x: 330, y: 160, size: 'small' },
-            { name: 'Beromünster', district: 'Sursee', x: 280, y: 160, size: 'small' },
-            { name: 'Büron', district: 'Sursee', x: 300, y: 130, size: 'small' },
-            { name: 'Triengen', district: 'Sursee', x: 280, y: 120, size: 'small' },
-            { name: 'Knutwil', district: 'Sursee', x: 260, y: 130, size: 'small' },
-            { name: 'Rickenbach', district: 'Sursee', x: 250, y: 140, size: 'small' },
-            { name: 'Mauensee', district: 'Sursee', x: 270, y: 110, size: 'small' },
-            { name: 'Buttisholz', district: 'Sursee', x: 240, y: 180, size: 'small' },
-            { name: 'Schlierbach', district: 'Sursee', x: 260, y: 150, size: 'small' },
-            { name: 'Gunzwil', district: 'Sursee', x: 240, y: 140, size: 'small' },
+            // District: Hochdorf
+            { name: 'Hochdorf', lat: 47.1675, lon: 8.2944, district: 'Hochdorf', type: 'town' },
+            { name: 'Rothenburg', lat: 47.0978, lon: 8.2639, district: 'Hochdorf', type: 'municipality' },
+            { name: 'Eschenbach', lat: 47.1347, lon: 8.3186, district: 'Hochdorf', type: 'municipality' },
 
-            // District: Willisau (north, agricultural region)
-            { name: 'Willisau', district: 'Willisau', x: 190, y: 140, size: 'medium' },
-            { name: 'Menznau', district: 'Willisau', x: 160, y: 180, size: 'small' },
-            { name: 'Gettnau', district: 'Willisau', x: 180, y: 160, size: 'small' },
-            { name: 'Alberswil', district: 'Willisau', x: 210, y: 150, size: 'small' },
-            { name: 'Uffikon', district: 'Willisau', x: 220, y: 140, size: 'small' },
-            { name: 'Ettiswil', district: 'Willisau', x: 200, y: 130, size: 'small' },
-            { name: 'Altishofen', district: 'Willisau', x: 210, y: 120, size: 'small' },
-            { name: 'Egolzwil', district: 'Willisau', x: 230, y: 130, size: 'small' },
-            { name: 'Wauwil', district: 'Willisau', x: 240, y: 120, size: 'small' },
-            { name: 'Schötz', district: 'Willisau', x: 250, y: 130, size: 'small' },
-            { name: 'Nebikon', district: 'Willisau', x: 260, y: 120, size: 'small' },
-            { name: 'Dagmersellen', district: 'Willisau', x: 270, y: 110, size: 'small' },
-            { name: 'Reiden', district: 'Willisau', x: 250, y: 110, size: 'small' },
-            { name: 'Pfaffnau', district: 'Willisau', x: 230, y: 110, size: 'small' },
-            { name: 'Roggliswil', district: 'Willisau', x: 180, y: 150, size: 'small' },
-            { name: 'Altbüron', district: 'Willisau', x: 220, y: 110, size: 'small' },
-            { name: 'Grossdietwil', district: 'Willisau', x: 200, y: 110, size: 'small' },
-            { name: 'Zell', district: 'Willisau', x: 170, y: 130, size: 'small' },
-            { name: 'Luthern', district: 'Willisau', x: 150, y: 120, size: 'small' },
-            { name: 'Hergiswil bei Willisau', district: 'Willisau', x: 160, y: 140, size: 'small' },
-            { name: 'Fischbach', district: 'Willisau', x: 180, y: 130, size: 'small' },
-            { name: 'Hildisrieden', district: 'Willisau', x: 270, y: 180, size: 'small' },
+            // District: Sursee
+            { name: 'Sursee', lat: 47.1711, lon: 8.1097, district: 'Sursee', type: 'town' },
+            { name: 'Sempach', lat: 47.1314, lon: 8.1889, district: 'Sursee', type: 'municipality' },
+            { name: 'Beromünster', lat: 47.2081, lon: 8.1883, district: 'Sursee', type: 'municipality' },
 
-            // District: Entlebuch (west, mountainous)
-            { name: 'Entlebuch', district: 'Entlebuch', x: 150, y: 240, size: 'medium' },
-            { name: 'Schüpfheim', district: 'Entlebuch', x: 130, y: 260, size: 'small' },
-            { name: 'Flühli', district: 'Entlebuch', x: 110, y: 280, size: 'small' },
-            { name: 'Escholzmatt-Marbach', district: 'Entlebuch', x: 100, y: 220, size: 'small' },
-            { name: 'Hasle', district: 'Entlebuch', x: 170, y: 220, size: 'small' },
-            { name: 'Wolhusen', district: 'Entlebuch', x: 210, y: 220, size: 'small' },
-            { name: 'Werthenstein', district: 'Entlebuch', x: 190, y: 240, size: 'small' },
-            { name: 'Ruswil', district: 'Entlebuch', x: 220, y: 200, size: 'small' },
-            { name: 'Romoos', district: 'Entlebuch', x: 140, y: 290, size: 'small' },
-            { name: 'Doppleschwand', district: 'Entlebuch', x: 120, y: 250, size: 'small' }
+            // District: Willisau
+            { name: 'Willisau', lat: 47.1219, lon: 7.9939, district: 'Willisau', type: 'town' },
+            { name: 'Schötz', lat: 47.1667, lon: 8.0167, district: 'Willisau', type: 'municipality' },
+
+            // District: Entlebuch
+            { name: 'Entlebuch', lat: 46.9972, lon: 8.0556, district: 'Entlebuch', type: 'town' },
+            { name: 'Schüpfheim', lat: 46.9503, lon: 8.0169, district: 'Entlebuch', type: 'municipality' },
+            { name: 'Wolhusen', lat: 47.0606, lon: 8.0758, district: 'Entlebuch', type: 'municipality' }
         ];
 
-        // Create more realistic canton boundary
-        // Shaped to resemble actual Canton Lucerne geography
-        const cantonBoundary = svg.append('path')
-            .attr('d', `
-                M 90,200
-                L 100,180 L 120,150 L 140,130 L 160,115 L 190,105 L 220,100 L 250,98 L 280,100 L 300,105
-                L 320,110 L 350,120 L 370,135 L 390,150 L 410,170 L 430,195 L 445,220 L 455,245
-                L 460,270 L 458,295 L 450,315 L 435,330 L 410,340 L 385,345 L 360,340 L 335,330
-                L 310,315 L 290,295 L 270,275 L 250,260 L 230,250 L 210,245 L 190,250 L 170,260
-                L 150,275 L 130,285 L 110,280 L 95,265 L 87,240 L 88,220
-                Z
-            `)
-            .attr('fill', '#e5e5e5')
-            .attr('stroke', '#999')
-            .attr('stroke-width', 2)
-            .attr('opacity', 0.3);
+        // Add markers for municipalities
+        municipalities.forEach(municipality => {
+            let markerColor = '#666666';
+            let markerSize = 8;
 
-        // Add Lake Lucerne (simplified representation)
-        svg.append('path')
-            .attr('d', `
-                M 310,290
-                Q 340,295 370,300
-                Q 400,305 420,310
-                L 430,315
-                Q 425,322 415,325
-                Q 395,330 370,328
-                Q 340,325 315,318
-                Q 295,310 310,290
-                Z
-            `)
-            .attr('fill', '#b8d4e8')
-            .attr('stroke', '#7ca9c9')
-            .attr('stroke-width', 1)
-            .attr('opacity', 0.5);
+            if (municipality.type === 'city') {
+                markerColor = '#dc2626';
+                markerSize = 12;
+            } else if (municipality.type === 'town') {
+                markerColor = '#888888';
+                markerSize = 10;
+            }
 
-        // Function to get municipality size
-        function getMunicipalityRadius(size) {
-            if (size === 'large') return 18;
-            if (size === 'medium') return 14;
-            return 10;
-        }
+            // Create custom icon
+            const icon = L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="
+                    width: ${markerSize}px;
+                    height: ${markerSize}px;
+                    background: ${markerColor};
+                    border: 2px solid white;
+                    border-radius: 50%;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                    transition: all 0.2s;
+                "></div>`,
+                iconSize: [markerSize, markerSize],
+                iconAnchor: [markerSize/2, markerSize/2]
+            });
 
-        // Create municipality zones
-        const municipalityZones = svg.selectAll('.municipality-zone')
-            .data(municipalities)
-            .enter()
-            .append('g')
-            .attr('class', 'municipality-zone')
-            .style('cursor', 'pointer');
+            const marker = L.marker([municipality.lat, municipality.lon], { icon: icon })
+                .addTo(map);
 
-        // Add circles for municipalities
-        municipalityZones.append('circle')
-            .attr('cx', d => d.x)
-            .attr('cy', d => d.y)
-            .attr('r', d => getMunicipalityRadius(d.size))
-            .attr('fill', '#666')
-            .attr('stroke', '#fff')
-            .attr('stroke-width', 2)
-            .attr('opacity', 0.7)
-            .on('mouseover', function(event, d) {
-                d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .attr('fill', '#dc2626')
-                    .attr('opacity', 1)
-                    .attr('r', getMunicipalityRadius(d.size) + 3);
+            // Add popup
+            const popupContent = `
+                <div style="min-width: 150px;">
+                    <h4 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: #1a1a1a;">${municipality.name}</h4>
+                    <p style="margin: 0; font-size: 13px; color: #666;">District: ${municipality.district}</p>
+                    <p style="margin: 4px 0 0 0; font-size: 12px; color: #999;">Type: ${municipality.type}</p>
+                </div>
+            `;
 
-                // Update info panel
+            marker.bindPopup(popupContent);
+
+            // Update info panel on hover
+            marker.on('mouseover', function() {
                 const infoPanel = document.getElementById('municipality-info');
                 infoPanel.innerHTML = `
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
-                            <h4 style="font-size: 16px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">${d.name}</h4>
-                            <p style="font-size: 13px; color: #666;">District: ${d.district}</p>
+                            <h4 style="font-size: 16px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">${municipality.name}</h4>
+                            <p style="font-size: 13px; color: #666;">District: ${municipality.district}</p>
                         </div>
                         <div style="text-align: right;">
-                            <span style="font-size: 11px; color: #999;">Municipality ${municipalities.indexOf(d) + 1} of ${municipalities.length}</span>
+                            <span style="font-size: 11px; color: #999; text-transform: capitalize;">${municipality.type}</span>
                         </div>
                     </div>
                 `;
-            })
-            .on('mouseout', function(event, d) {
-                d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .attr('fill', '#666')
-                    .attr('opacity', 0.7)
-                    .attr('r', getMunicipalityRadius(d.size));
-
-                // Reset info panel
-                const infoPanel = document.getElementById('municipality-info');
-                infoPanel.innerHTML = '<p style="font-size: 13px; color: #666; text-align: center;">Hover over a municipality to see details</p>';
-            })
-            .on('click', function(event, d) {
-                // You can add click functionality here if needed
-                console.log('Clicked:', d.name);
             });
 
-        // Add labels for major cities only
-        municipalityZones
-            .filter(d => d.size === 'large' || d.size === 'medium')
-            .append('text')
-            .attr('x', d => d.x)
-            .attr('y', d => d.y + getMunicipalityRadius(d.size) + 12)
-            .attr('text-anchor', 'middle')
-            .attr('font-size', '11px')
-            .attr('font-weight', '600')
-            .attr('fill', '#333')
-            .style('pointer-events', 'none')
-            .text(d => d.name);
-
-        // Add district labels
-        const districtCenters = {
-            'Lucerne': { x: 300, y: 420 },
-            'Hochdorf': { x: 260, y: 450 },
-            'Sursee': { x: 380, y: 50 },
-            'Willisau': { x: 160, y: 60 },
-            'Entlebuch': { x: 80, y: 280 }
-        };
-
-        Object.entries(districtCenters).forEach(([district, pos]) => {
-            svg.append('text')
-                .attr('x', pos.x)
-                .attr('y', pos.y)
-                .attr('text-anchor', 'middle')
-                .attr('font-size', '12px')
-                .attr('font-weight', '700')
-                .attr('fill', '#999')
-                .attr('opacity', 0.5)
-                .style('pointer-events', 'none')
-                .text(district.toUpperCase());
+            marker.on('mouseout', function() {
+                const infoPanel = document.getElementById('municipality-info');
+                infoPanel.innerHTML = '<p style="font-size: 13px; color: #666; text-align: center;">Click on the map to explore Canton Lucerne</p>';
+            });
         });
 
-        // Add title
-        svg.append('text')
-            .attr('x', width / 2)
-            .attr('y', 30)
-            .attr('text-anchor', 'middle')
-            .attr('font-size', '16px')
-            .attr('font-weight', '700')
-            .attr('fill', '#333')
-            .text('Canton of Lucerne - 79 Municipalities');
+        // Add custom styles for popups
+        const style = document.createElement('style');
+        style.textContent = `
+            .leaflet-popup-content-wrapper {
+                border-radius: 4px;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            }
+            .leaflet-popup-content {
+                margin: 12px;
+            }
+            .custom-marker div:hover {
+                transform: scale(1.3);
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
