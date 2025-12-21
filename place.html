@@ -89,19 +89,35 @@
         </header>
 
         <div class="graph-panel">
-            <h2 class="panel-title">Quick Info</h2>
-            <div style="padding: 20px;">
-                <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 16px; margin-bottom: 16px;">
-                    <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a;">Region</h3>
-                    <p style="font-size: 13px; color: #666;">Central Switzerland</p>
-                </div>
-                <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 16px; margin-bottom: 16px;">
-                    <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a;">Cantons</h3>
-                    <p style="font-size: 13px; color: #666;">Lucerne, Nidwalden</p>
-                </div>
-                <div style="background: #fafafa; border: 1px solid #e0e0e0; padding: 16px;">
-                    <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a;">Municipalities</h3>
-                    <p style="font-size: 13px; color: #666;">Lucerne (city), Kriens, Emmen</p>
+            <h2 class="panel-title">Swiss Cantons</h2>
+            <div style="padding: 20px; max-height: calc(100vh - 160px); overflow-y: auto;">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <a href="#lucerne" style="padding: 8px 12px; background: #dc2626; color: white; text-decoration: none; border-radius: 4px; font-size: 13px; font-weight: 600;">Lucerne (pilot)</a>
+                    <a href="#aargau" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Aargau</a>
+                    <a href="#appenzell-ausserrhoden" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Appenzell Ausserrhoden</a>
+                    <a href="#appenzell-innerrhoden" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Appenzell Innerrhoden</a>
+                    <a href="#basel-landschaft" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Basel-Landschaft</a>
+                    <a href="#basel-stadt" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Basel-Stadt</a>
+                    <a href="#bern" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Bern</a>
+                    <a href="#fribourg" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Fribourg</a>
+                    <a href="#geneva" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Geneva</a>
+                    <a href="#glarus" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Glarus</a>
+                    <a href="#graubunden" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Graubünden</a>
+                    <a href="#jura" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Jura</a>
+                    <a href="#neuchatel" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Neuchâtel</a>
+                    <a href="#nidwalden" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Nidwalden</a>
+                    <a href="#obwalden" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Obwalden</a>
+                    <a href="#schaffhausen" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Schaffhausen</a>
+                    <a href="#schwyz" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Schwyz</a>
+                    <a href="#solothurn" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Solothurn</a>
+                    <a href="#st-gallen" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">St. Gallen</a>
+                    <a href="#thurgau" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Thurgau</a>
+                    <a href="#ticino" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Ticino</a>
+                    <a href="#uri" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Uri</a>
+                    <a href="#valais" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Valais</a>
+                    <a href="#vaud" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Vaud</a>
+                    <a href="#zug" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Zug</a>
+                    <a href="#zurich" style="padding: 8px 12px; background: #fafafa; color: #666; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px;">Zürich</a>
                 </div>
             </div>
         </div>
