@@ -104,6 +104,29 @@
                     <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a;">Municipalities</h3>
                     <p style="font-size: 13px; color: #666;">79</p>
                 </div>
+                <div style="background: white; border: 1px solid #e0e0e0; padding: 16px; margin-top: 16px; text-align: center;">
+                    <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #1a1a1a;">Coat of Arms</h3>
+                    <svg width="120" height="140" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Shield outline -->
+                        <path d="M 10 10 L 110 10 L 110 90 Q 60 130 10 90 Z" fill="white" stroke="#333" stroke-width="2"/>
+
+                        <!-- Diagonal division - white (top-left) and blue (bottom-right) -->
+                        <defs>
+                            <clipPath id="shield-clip">
+                                <path d="M 10 10 L 110 10 L 110 90 Q 60 130 10 90 Z"/>
+                            </clipPath>
+                        </defs>
+
+                        <!-- White half (top-left) -->
+                        <polygon points="10,10 110,10 10,90" fill="white" clip-path="url(#shield-clip)"/>
+
+                        <!-- Blue half (bottom-right) -->
+                        <polygon points="110,10 110,90 60,130 10,90" fill="#0066CC" clip-path="url(#shield-clip)"/>
+
+                        <!-- Shield border -->
+                        <path d="M 10 10 L 110 10 L 110 90 Q 60 130 10 90 Z" fill="none" stroke="#333" stroke-width="2"/>
+                    </svg>
+                </div>
             </div>
         </div>
 
